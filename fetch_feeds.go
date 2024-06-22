@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"os"
 	"sort"
 	"strings"
@@ -30,6 +31,8 @@ type Article struct {
 	FeedTitle  string    `json:"feedTitle"`
 	FeedAuthor string    `json:"feedAuthor"`
 }
+
+const articlesPerPage = 20
 
 // Helper function to strip HTML tags and limit to a few sentences
 func limitSummary(input string, sentenceLimit int) string {
@@ -156,18 +159,53 @@ func main() {
 		return articles[i].Published.After(articles[j].Published)
 	})
 
-	file, err := os.Create("web/articles.json")
+	// Calculate the number of pages
+	totalPages := int(math.Ceil(float64(len(articles)) / float64(articlesPerPage)))
+
+	// Create a directory for the paginated JSON files
+	err = os.MkdirAll("web/articles", 0755)
 	if err != nil {
-		fmt.Printf("Error creating file: %v\n", err)
+		fmt.Printf("Error creating articles directory: %v\n", err)
 		return
 	}
-	defer file.Close()
 
-	encoder := json.NewEncoder(file)
-	err = encoder.Encode(articles)
+	// Create paginated JSON files
+	for page := 1; page <= totalPages; page++ {
+		start := (page - 1) * articlesPerPage
+		end := start + articlesPerPage
+		if end > len(articles) {
+			end = len(articles)
+		}
+
+		pageArticles := articles[start:end]
+
+		file, err := os.Create(fmt.Sprintf("web/articles/page_%d.json", page))
+		if err != nil {
+			fmt.Printf("Error creating file for page %d: %v\n", page, err)
+			continue
+		}
+		defer file.Close()
+
+		encoder := json.NewEncoder(file)
+		err = encoder.Encode(pageArticles)
+		if err != nil {
+			fmt.Printf("Error encoding JSON for page %d: %v\n", page, err)
+		}
+	}
+
+	// Create a metadata file with total pages info
+	metadataFile, err := os.Create("web/articles/metadata.json")
 	if err != nil {
-		fmt.Printf("Error encoding JSON: %v\n", err)
+		fmt.Printf("Error creating metadata file: %v\n", err)
 		return
+	}
+	defer metadataFile.Close()
+
+	metadata := map[string]int{"totalPages": totalPages}
+	encoder := json.NewEncoder(metadataFile)
+	err = encoder.Encode(metadata)
+	if err != nil {
+		fmt.Printf("Error encoding metadata JSON: %v\n", err)
 	}
 
 	fmt.Println("Articles fetched, sorted, and saved successfully.")

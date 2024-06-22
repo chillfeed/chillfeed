@@ -68,43 +68,108 @@
             text-align: center;
             margin-bottom: 30px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: var(--base02);
+            color: var(--base0);
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .pagination button:hover {
+            background-color: var(--base01);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>ChillFeed Aggregator</h1>
         <div id="articles"></div>
+        <div class="pagination">
+            <button id="prevPage" disabled>Previous</button>
+            <span id="pageInfo"></span>
+            <button id="nextPage">Next</button>
+        </div>
     </div>
 
     <script>
-        function fetchArticles() {
-            fetch('articles.json')
-                .then(response => response.json())
-                .then(articles => {
-                    const articlesContainer = document.getElementById('articles');
-                    articles.forEach(article => {
-                        const articleElement = document.createElement('div');
-                        articleElement.className = 'article';
-                        articleElement.innerHTML = `
-                            <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
-                            <p>${article.summary}</p>
-                            <small>
-                                Published: ${new Date(article.published).toLocaleDateString()} |
-                                Source: ${article.feedTitle}
-                                ${article.feedAuthor ? `by ${article.feedAuthor}` : ''}
-                            </small>
-                        `;
-                        articlesContainer.appendChild(articleElement);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching articles:', error);
-                    const articlesContainer = document.getElementById('articles');
-                    articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>';
-                });
-        }
+      let currentPage = 1;
+      let totalPages = 1;
 
-        fetchArticles();
-    </script>
-</body>
-</html>
+      function fetchMetadata() {
+          fetch('articles/metadata.json')
+              .then(response => response.json())
+              .then(metadata => {
+                  totalPages = metadata.totalPages;
+                  updatePageInfo();
+                  fetchArticles(currentPage);
+              })
+              .catch(error => {
+                  console.error('Error fetching metadata:', error);
+              });
+      }
+
+      function fetchArticles(page) {
+          fetch(`articles/page_${page}.json`)
+              .then(response => response.json())
+              .then(articles => {
+                  const articlesContainer = document.getElementById('articles');
+                  articlesContainer.innerHTML = '';
+                  articles.forEach(article => {
+                      const articleElement = document.createElement('div');
+                      articleElement.className = 'article';
+                      articleElement.innerHTML = `
+                          <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                          <p>${article.summary}</p>
+                          <small>
+                              Published: ${new Date(article.published).toLocaleDateString()} |
+                              Source: ${article.feedTitle}
+                              ${article.feedAuthor ? `by ${article.feedAuthor}` : ''}
+                          </small>
+                      `;
+                      articlesContainer.appendChild(articleElement);
+                  });
+                  updatePageInfo();
+              })
+              .catch(error => {
+                  console.error('Error fetching articles:', error);
+                  const articlesContainer = document.getElementById('articles');
+                  articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>';
+              });
+      }
+
+      function updatePageInfo() {
+          document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+          document.getElementById('prevPage').disabled = currentPage === 1;
+          document.getElementById('nextPage').disabled = currentPage === totalPages;
+      }
+
+      document.getElementById('prevPage').addEventListener('click', () => {
+          if (currentPage > 1) {
+              currentPage--;
+              fetchArticles(currentPage);
+          }
+      });
+
+      document.getElementById('nextPage').addEventListener('click', () => {
+          if (currentPage < totalPages) {
+              currentPage++;
+              fetchArticles(currentPage);
+          }
+      });
+
+      fetchMetadata();
+  </script>

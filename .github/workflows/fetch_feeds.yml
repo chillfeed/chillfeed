@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'web/articles.json'
+      - 'web/articles/*'
   schedule:
     - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:  # Allow manual trigger
@@ -37,8 +37,8 @@ jobs:
     - name: Commit and push if changed
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "Update articles.json"
-        file_pattern: "web/articles.json"
+        commit_message: "Update articles"
+        file_pattern: "web/articles/*"
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
