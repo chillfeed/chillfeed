@@ -35,7 +35,6 @@ feeds:
   - url: https://opentofu.org/blog/rss.xml
   - url: https://pluralistic.net/feed/
   - url: https://pluralistic.net/feed/
-  - url: https://renderpedia.substack.com/feed
   - url: https://runtimeterror.dev/feed.xml
   - url: https://runtimeterror.dev/feed.xml
   - url: https://saltproject.io/blog/index.xml
