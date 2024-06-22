@@ -92,7 +92,7 @@ func main() {
 
 	var articles []Article
 	parser := gofeed.NewParser()
-	twoMonthsAgo := time.Now().AddDate(0, -2, 0)
+	oneMonthAgo := time.Now().AddDate(0, -1, 0)
 
 	for _, feed := range config.Feeds {
 		parsedFeed, err := parser.ParseURL(feed.URL)
@@ -115,7 +115,7 @@ func main() {
 				continue // Skip items without a valid publication date
 			}
 
-			if item.PublishedParsed.Before(twoMonthsAgo) {
+			if item.PublishedParsed.Before(oneMonthAgo) {
 				continue // Skip items older than two months
 			}
 
