@@ -14,6 +14,9 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const articlesPerPage = 20
+const maxAgeWeeks = 2
+
 type Feed struct {
 	URL   string `yaml:"url"`
 	Title string `yaml:"title,omitempty"`
@@ -36,8 +39,6 @@ type Metadata struct {
 	TotalPages  int       `json:"totalPages"`
 	LastFetched time.Time `json:"lastFetched"`
 }
-
-const articlesPerPage = 20
 
 // Helper function to strip HTML tags and limit to a few sentences
 func limitSummary(input string, sentenceLimit int) string {
@@ -100,7 +101,7 @@ func main() {
 
 	var articles []Article
 	parser := gofeed.NewParser()
-	oneMonthAgo := time.Now().AddDate(0, -1, 0)
+	ageLimit := time.Now().AddDate(0, 0, -7*maxAgeWeeks)
 
 	for _, feed := range config.Feeds {
 		parsedFeed, err := parser.ParseURL(feed.URL)
@@ -121,7 +122,7 @@ func main() {
 		// Check if the feed has any items within the last month
 		hasRecentItems := false
 		for _, item := range parsedFeed.Items {
-			if item.PublishedParsed != nil && item.PublishedParsed.After(oneMonthAgo) {
+			if item.PublishedParsed != nil && item.PublishedParsed.After(ageLimit) {
 				hasRecentItems = true
 				fmt.Printf("Retrieving [%s]...\n", feedTitle)
 				break
@@ -129,7 +130,7 @@ func main() {
 		}
 
 		if !hasRecentItems {
-			fmt.Printf("Skipping [%s]: No items within the last month.\n", feedTitle)
+			fmt.Printf("Skipping [%s]: No items within the %d weeks.\n", feedTitle, maxAgeWeeks)
 			continue
 		}
 
@@ -138,7 +139,7 @@ func main() {
 				continue // Skip items without a valid publication date
 			}
 
-			if item.PublishedParsed.Before(oneMonthAgo) {
+			if item.PublishedParsed.Before(ageLimit) {
 				continue // Skip items older than one month
 			}
 
