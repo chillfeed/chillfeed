@@ -12,3 +12,16 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 - No read/unread tracking - browse at your leisure
 - Paginated interface for easy navigation
 - Dark theme for comfortable viewing
+- **Not a reader** - opens articles on the source site, as the author intended
+
+## Configuration
+The list of feeds to be retrieve are stored in `feeds.yaml`. Each feed requires the feed URL; you can also set a title to override whatever is retrieved from the source.
+
+```yaml
+feeds:
+  - url: https://runtimeterror.dev/feed.xml
+    title: My Blog
+  - url: http://whatever.scalzi.com/feed/
+  - url: https://pluralistic.net/feed/
+  - url: http://xkcd.com/rss.xml
+```
