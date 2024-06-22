@@ -174,6 +174,22 @@ func main() {
 		return
 	}
 
+	// Remove existing JSON files
+	files, err := os.ReadDir("web/articles")
+	if err != nil {
+		fmt.Printf("Error reading articles directory: %v\n", err)
+		return
+	}
+	for _, file := range files {
+		if strings.HasSuffix(file.Name(), ".json") {
+			err = os.Remove(fmt.Sprintf("web/articles/%s", file.Name()))
+			if err != nil {
+				fmt.Printf("Error removing existing JSON file: %v\n", err)
+				return
+			}
+		}
+	}
+
 	// Create paginated JSON files
 	for page := 1; page <= totalPages; page++ {
 		start := (page - 1) * articlesPerPage
