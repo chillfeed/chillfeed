@@ -8,6 +8,7 @@ feeds:
   - url: https://blog.cloudflare.com/rss
   - url: https://blog.controld.com/rss/
   - url: https://blog.jbowdre.lol/feed/
+    title: My Bear Blog
   - url: https://boehs.org/in/blog.xml
   - url: https://bunny.net/blog/rss/
   - url: https://citationneeded.news/rss/
