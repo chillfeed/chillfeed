@@ -32,6 +32,11 @@ type Article struct {
 	FeedAuthor string    `json:"feedAuthor"`
 }
 
+type Metadata struct {
+	TotalPages  int       `json:"totalPages"`
+	LastFetched time.Time `json:"lastFetched"`
+}
+
 const articlesPerPage = 20
 
 // Helper function to strip HTML tags and limit to a few sentences
@@ -193,7 +198,7 @@ func main() {
 		}
 	}
 
-	// Create a metadata file with total pages info
+	// Create a metadata file with total pages info and last fetched time
 	metadataFile, err := os.Create("web/articles/metadata.json")
 	if err != nil {
 		fmt.Printf("Error creating metadata file: %v\n", err)
@@ -201,7 +206,10 @@ func main() {
 	}
 	defer metadataFile.Close()
 
-	metadata := map[string]int{"totalPages": totalPages}
+	metadata := Metadata{
+		TotalPages:  totalPages,
+		LastFetched: time.Now().UTC(),
+	}
 	encoder := json.NewEncoder(metadataFile)
 	err = encoder.Encode(metadata)
 	if err != nil {
