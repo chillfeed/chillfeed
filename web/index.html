@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChillFeed Aggregator</title>
+    <title>ChillFeed - Relaxed Feed Aggregator</title>
     <style>
         :root {
             --base03:  #002b36;
@@ -64,9 +64,15 @@
             font-size: 0.9em;
         }
         h1 {
-            color: var(--green);
+            color: var(--cyan);
             text-align: center;
             margin-bottom: 30px;
+        }
+        .tagline {
+            text-align: center;
+            color: var(--base1);
+            margin-bottom: 20px;
+            font-style: italic;
         }
         .pagination {
             display: flex;
@@ -107,6 +113,7 @@
 <body>
     <div class="container">
         <h1>ChillFeed Aggregator</h1>
+        <p class="tagline">Your feeds, all in one place. No pressure.</p>
         <div id="lastFetched">
           <span id="timeSince"></span><span id="runStatus"><a target="_blank" href="https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml"><img src="https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a></span>
         </div>
