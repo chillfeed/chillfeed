@@ -34,8 +34,6 @@ feeds:
   - url: https://omglol.news/rss.xml
   - url: https://opentofu.org/blog/rss.xml
   - url: https://pluralistic.net/feed/
-  - url: https://pluralistic.net/feed/
-  - url: https://runtimeterror.dev/feed.xml
   - url: https://runtimeterror.dev/feed.xml
   - url: https://saltproject.io/blog/index.xml
   - url: https://seirdy.one/posts/atom.xml
@@ -46,7 +44,6 @@ feeds:
   - url: https://tailscale.dev/feed.xml
   - url: https://that-bloke.com/feed/
   - url: https://updates.tinylytics.app/feed.atom
-  - url: https://world.hey.com/corlin/feed.atom
   - url: https://world.hey.com/corlin/feed.atom
   - url: https://www.fastmail.com/feed/
   - url: https://www.hashicorp.com/blog/feed.xml
