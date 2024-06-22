@@ -3,47 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChillFeed Aggregator</title>
+    <title>Relaxed Feed Aggregator</title>
     <style>
+        :root {
+            --base03:  #002b36;
+            --base02:  #073642;
+            --base01:  #586e75;
+            --base00:  #657b83;
+            --base0:   #839496;
+            --base1:   #93a1a1;
+            --base2:   #eee8d5;
+            --base3:   #fdf6e3;
+            --yellow:  #b58900;
+            --orange:  #cb4b16;
+            --red:     #dc322f;
+            --magenta: #d33682;
+            --violet:  #6c71c4;
+            --blue:    #268bd2;
+            --cyan:    #2aa198;
+            --green:   #859900;
+        }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: var(--base03);
+            color: var(--base0);
         }
         .container {
             max-width: 800px;
             margin: auto;
         }
         .article {
-            background-color: white;
+            background-color: var(--base02);
             margin-bottom: 20px;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .article h2 {
             margin-top: 0;
             margin-bottom: 10px;
+            color: var(--cyan);
         }
         .article a {
-            color: #1a73e8;
+            color: var(--blue);
             text-decoration: none;
         }
         .article a:hover {
             text-decoration: underline;
+            color: var(--violet);
         }
         .article p {
             margin-bottom: 10px;
         }
         .article small {
-            color: #666;
+            color: var(--base01);
             font-size: 0.9em;
         }
         h1 {
-            color: #1a73e8;
+            color: var(--green);
             text-align: center;
             margin-bottom: 30px;
         }
@@ -51,7 +72,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>ChillFeed Aggregator</h1>
+        <h1>Relaxed Feed Aggregator</h1>
         <div id="articles"></div>
     </div>
 
