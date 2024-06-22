@@ -1,0 +1,1 @@
+![Fetch Feeds](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)
