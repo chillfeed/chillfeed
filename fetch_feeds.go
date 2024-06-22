@@ -110,13 +110,28 @@ func main() {
 			feedAuthor = parsedFeed.Author.Name
 		}
 
+		// Check if the feed has any items within the last month
+		hasRecentItems := false
+		for _, item := range parsedFeed.Items {
+			if item.PublishedParsed != nil && item.PublishedParsed.After(oneMonthAgo) {
+				hasRecentItems = true
+				fmt.Printf("Retrieving [%s]...\n", feedTitle)
+				break
+			}
+		}
+
+		if !hasRecentItems {
+			fmt.Printf("Skipping [%s]: No items within the last month.\n", feedTitle)
+			continue
+		}
+
 		for _, item := range parsedFeed.Items {
 			if item.PublishedParsed == nil {
 				continue // Skip items without a valid publication date
 			}
 
 			if item.PublishedParsed.Before(oneMonthAgo) {
-				continue // Skip items older than two months
+				continue // Skip items older than one month
 			}
 
 			summary := item.Description
