@@ -7,7 +7,8 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 ## Features
 
 - Aggregates multiple RSS, Atom, and JSON feeds
-- Updates periodically via GitHub Actions
+- Updates on a schedule via GitHub Actions
+- Served via GitHub Pages
 - Displays feed items in a clean, easy-to-scan format
 - No read/unread tracking - browse at your leisure
 - Paginated interface for easy navigation
@@ -25,3 +26,19 @@ feeds:
   - url: https://pluralistic.net/feed/
   - url: http://xkcd.com/rss.xml
 ```
+
+The schedule is defined in the workflow at `.github/workflows/fetch_feeds.yml`; adjust accordingly.
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'web/articles/*'
+  schedule:
+    - cron: '0 */4 * * *'  # Run every 4 hours
+  workflow_dispatch:  # Allow manual trigger
+```
+
+If you want to serve on a custom domain instead of `<username>.github.io`, set the repository secret `CNAME` to the desired domain and be sure that's configured appropriately with your DNS provider.
