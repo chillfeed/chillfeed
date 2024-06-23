@@ -1,0 +1,7 @@
+articlesPerPage: 20                           # how many posts to show on each page
+fetchWeeks: 4                                 # how many weeks to go back
+feeds:
+  - url: https://runtimeterror.dev/feed.xml
+    title: jbowdre's Technical Blog           # override this title
+  - url: http://blog.jbowdre.lol/feed/
+    title: jbowdre's Weblog

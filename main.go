@@ -16,7 +16,8 @@ import (
 
 const defaultArticlesPerPage = 20
 const defaultFetchWeeks = 4
-const defaultRepo = "jbowdre/chillfeed"
+const defaultRepo = "chillfeed/chillfeed"
+const defaultConfigFile = "config.yaml.example"
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -91,9 +92,28 @@ func limitSummary(input string, sentenceLimit int) string {
 	return summary
 }
 
+func getConfigFile() (string, error) {
+	if _, err := os.Stat("config.yaml"); err == nil {
+		return "config.yaml", nil
+	} else if os.IsNotExist(err) {
+		if _, err := os.Stat(defaultConfigFile); err == nil {
+			fmt.Printf("Warning: Using sample %s file. Please create and commit your own config.yaml file to track your feeds.\n", defaultConfigFile)
+			return defaultConfigFile, nil
+		}
+	}
+	return "", fmt.Errorf("config file not found")
+}
+
 func main() {
+	// Use sample config if config.yaml doesn't exist
+	configFile, err := getConfigFile()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+
 	// Read and parse the YAML file
-	yamlFile, err := os.ReadFile("config.yaml")
+	yamlFile, err := os.ReadFile(configFile)
 	if err != nil {
 		fmt.Printf("Error reading YAML file: %v\n", err)
 		return
