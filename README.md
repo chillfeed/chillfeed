@@ -19,11 +19,12 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 `config.yaml` contains some basic configuration options as well as the list of feeds to retrieve. Each feed *must* have a `url` field, and may have an optional `title` that can be used in case the title returned by the feed is not descriptive enough.
 
 ```yaml
-articlesPerPage: 20
-fetchWeeks: 4
+articlesPerPage: 20                           # how many posts to show on each page
+fetchWeeks: 4                                 # how many weeks to go back
+repo: github.com/jbowdre/chillfeed            # the name of your repo, for the status badge
 feeds:
   - url: https://runtimeterror.dev/feed.xml
-    title: My Blog
+    title: My Blog                            # overriding this title
   - url: http://whatever.scalzi.com/feed/
   - url: https://pluralistic.net/feed/
   - url: http://xkcd.com/rss.xml

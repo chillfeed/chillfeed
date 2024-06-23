@@ -16,6 +16,7 @@ import (
 
 const defaultArticlesPerPage = 20
 const defaultFetchWeeks = 4
+const defaultRepo = "github.com/jbowdre/chillfeed"
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -26,6 +27,7 @@ type Config struct {
 	Feeds           []Feed `yaml:"feeds"`
 	ArticlesPerPage int    `yaml:"articlesPerPage,omitempty"`
 	FetchWeeks      int    `yaml:"fetchWeeks,omitempty"`
+	Repo            string `yaml:"repo,omitempty"`
 }
 
 type Article struct {
@@ -42,6 +44,7 @@ type Metadata struct {
 	TotalPages   int       `json:"totalPages"`
 	LastFetched  time.Time `json:"lastFetched"`
 	FetchedWeeks int       `json:"fetchedWeeks"`
+	Repo         string    `json:"repo"`
 }
 
 // Helper function to strip HTML tags and limit to a few sentences
@@ -111,6 +114,11 @@ func main() {
 	fetchWeeks := defaultFetchWeeks
 	if config.FetchWeeks != 0 {
 		fetchWeeks = config.FetchWeeks
+	}
+	repo := defaultRepo
+	if config.Repo != "" {
+		repo = strings.TrimPrefix(config.Repo, "https://")
+		repo = strings.TrimPrefix(repo, "http://")
 	}
 
 	var articles []Article
@@ -243,6 +251,7 @@ func main() {
 		TotalPages:   totalPages,
 		LastFetched:  time.Now().UTC(),
 		FetchedWeeks: fetchWeeks,
+		Repo:         repo,
 	}
 	encoder := json.NewEncoder(metadataFile)
 	err = encoder.Encode(metadata)
