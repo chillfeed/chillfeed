@@ -32,7 +32,7 @@ jobs:
         go get gopkg.in/yaml.v2
 
     - name: Run feed fetcher
-      run: go run fetch_feeds.go
+      run: go run .
 
     - name: Commit and push if changed
       uses: stefanzweifel/git-auto-commit-action@v4
