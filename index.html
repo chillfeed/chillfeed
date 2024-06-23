@@ -184,9 +184,9 @@
                           <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
                           <p>${article.summary}</p>
                           <small>
-                              Published: ${new Date(article.published).toLocaleDateString()} |
-                              Source: ${article.feedTitle}
-                              ${article.feedAuthor ? `by ${article.feedAuthor}` : ''}
+                              <b>${new Date(article.published).toLocaleDateString()}</b> |
+                              <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
+                              ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
                           </small>
                       `;
                       articlesContainer.appendChild(articleElement);
