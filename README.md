@@ -1,6 +1,6 @@
 # ChillFeed
 
-![Fetch Feeds](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)
+[![Fetch Feeds](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml)
 
 ChillFeed is a relaxed feed aggregator that brings your feeds together in one place, with no pressure to keep up. It's designed for those who want a list of cool stuff so they can read what grabs their interest rather than a checklist of items that must be acknowledged.
 
@@ -16,9 +16,11 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 - **Not a reader** - opens articles on the source site, as the author intended
 
 ## Configuration
-The list of feeds and some basic configs are stored in `config.yaml`. Each feed requires the feed URL; you can also set a title to override whatever is retrieved from the source.
+`config.yaml` contains some basic configuration options as well as the list of feeds to retrieve. Each feed *must* have a `url` field, and may have an optional `title` that can be used in case the title returned by the feed is not descriptive enough.
 
 ```yaml
+articlesPerPage: 20
+fetchWeeks: 4
 feeds:
   - url: https://runtimeterror.dev/feed.xml
     title: My Blog
