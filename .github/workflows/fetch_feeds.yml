@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'web/articles/*'
   schedule:
     - cron: '0 */4 * * *'  # Run every 4 hours
   workflow_dispatch:  # Allow manual trigger
