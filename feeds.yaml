@@ -4,19 +4,23 @@ feeds:
   - url: http://www.schneier.com/blog/index.rdf
   - url: http://xkcd.com/rss.xml
   - url: https://about.gitlab.com/security-releases.xml
+  - url: https://austinross.xyz/rss.xml
   - url: https://blog.autumnrain.cc/rss.xml
   - url: https://blog.cloudflare.com/rss
   - url: https://blog.controld.com/rss/
   - url: https://blog.jbowdre.lol/feed/
-    title: My Bear Blog
   - url: https://boehs.org/in/blog.xml
   - url: https://bunny.net/blog/rss/
   - url: https://citationneeded.news/rss/
   - url: https://crankysec.com/feed/feed.xml
   - url: https://doublepulsar.com/feed
   - url: https://edfishjr.com/feed/
+  - url: https://feedpress.me/coryd
   - url: https://frills.dev/rss.xml
   - url: https://gkeenan.co/avgb?format=rss
+  - url: https://grahamhelton.com/blog/index.xml
+  - url: https://hamvocke.com/feed.xml
+    title: Ham Vocke
   - url: https://home-assistant.io/atom.xml
   - url: https://immich.app/blog/rss.xml
   - url: https://journal.paoloamoroso.com/feed/
@@ -27,9 +31,10 @@ feeds:
   - url: https://newsletter.goodtechthings.com/feed
   - url: https://notes.jeddacp.com/feed/
   - url: https://obsidian.md/feed.xml
-  - url: https://omglol.news/rss.xml
+  - url: https://omglol.news/feed.json
   - url: https://opentofu.org/blog/rss.xml
   - url: https://pluralistic.net/feed/
+  - url: https://rscottjones.com/feed/
   - url: https://runtimeterror.dev/feed.xml
   - url: https://saltproject.io/blog/index.xml
   - url: https://seirdy.one/posts/atom.xml
