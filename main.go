@@ -33,6 +33,7 @@ type Article struct {
 	Published  time.Time `json:"published"`
 	FeedTitle  string    `json:"feedTitle"`
 	FeedAuthor string    `json:"feedAuthor"`
+	Homepage   string    `json:"homepage"`
 }
 
 type Metadata struct {
@@ -118,6 +119,7 @@ func main() {
 		if parsedFeed.Author != nil {
 			feedAuthor = parsedFeed.Author.Name
 		}
+		feedHomepage := parsedFeed.Link
 
 		// Check if the feed has any items within the last month
 		hasRecentItems := false
@@ -156,6 +158,7 @@ func main() {
 				Published:  *item.PublishedParsed,
 				FeedTitle:  feedTitle,
 				FeedAuthor: feedAuthor,
+				Homepage:   feedHomepage,
 			})
 		}
 	}
