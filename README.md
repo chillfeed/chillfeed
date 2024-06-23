@@ -16,7 +16,7 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 - **Not a reader** - opens articles on the source site, as the author intended
 
 ## Configuration
-The list of feeds to be retrieve are stored in `feeds.yaml`. Each feed requires the feed URL; you can also set a title to override whatever is retrieved from the source.
+The list of feeds and some basic configs are stored in `config.yaml`. Each feed requires the feed URL; you can also set a title to override whatever is retrieved from the source.
 
 ```yaml
 feeds:

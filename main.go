@@ -14,8 +14,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const articlesPerPage = 20
-const fetchWeeks = 2
+const defaultArticlesPerPage = 20
+const defaultFetchWeeks = 4
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -23,7 +23,9 @@ type Feed struct {
 }
 
 type Config struct {
-	Feeds []Feed `yaml:"feeds"`
+	Feeds           []Feed `yaml:"feeds"`
+	ArticlesPerPage int    `yaml:"articlesPerPage,omitempty"`
+	FetchWeeks      int    `yaml:"fetchWeeks,omitempty"`
 }
 
 type Article struct {
@@ -88,7 +90,7 @@ func limitSummary(input string, sentenceLimit int) string {
 
 func main() {
 	// Read and parse the YAML file
-	yamlFile, err := os.ReadFile("feeds.yaml")
+	yamlFile, err := os.ReadFile("config.yaml")
 	if err != nil {
 		fmt.Printf("Error reading YAML file: %v\n", err)
 		return
@@ -99,6 +101,16 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error parsing YAML: %v\n", err)
 		return
+	}
+
+	// Set default values if not provided
+	articlesPerPage := defaultArticlesPerPage
+	if config.ArticlesPerPage != 0 {
+		articlesPerPage = config.ArticlesPerPage
+	}
+	fetchWeeks := defaultFetchWeeks
+	if config.FetchWeeks != 0 {
+		fetchWeeks = config.FetchWeeks
 	}
 
 	var articles []Article
