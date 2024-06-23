@@ -34,12 +34,6 @@ jobs:
     - name: Run feed fetcher
       run: go run .
 
-    - name: Commit and push if changed
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "Update articles"
-        file_pattern: "web/articles/*"
-
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
