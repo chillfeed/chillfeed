@@ -112,12 +112,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>ChillFeed Aggregator</h1>
-        <p class="tagline">Your feeds in one place. No pressure.</p>
+        <h1>ChillFeed</h1>
+        <p class="tagline">Check out these cool posts from the last <span id="fetchedWeeks"></span>.<br>Or don't. It's entirely up to you.<br>No judgment here.</p>
         <div id="lastFetched">
-          <span id="fetchedWeeks"></span><br>
           <span id="timeSinceLastFetch"></span><br>
-          <span id="runStatus"><a target="_blank" href="https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml"><img src="https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a></span>
+          <span id="runStatus"></span>
         </div>
         <div id="articles"></div>
         <div class="pagination">
@@ -137,6 +136,7 @@
                 .then(metadata => {
                     totalPages = metadata.totalPages;
                     fetchedWeeks = metadata.fetchedWeeks;
+                    repo = metadata.repo;
                     updatePageInfo();
                     fetchArticles(currentPage);
                     updateLastFetched(metadata.lastFetched);
@@ -171,7 +171,8 @@
 
               return 'Just now';
             }
-            document.getElementById('fetchedWeeks').textContent = `Content from the last ${fetchedWeeks} week(s)`;
+            document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://${repo}/actions/workflows/fetch_feeds.yml"><img src="https://${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
+            document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
             document.getElementById('timeSinceLastFetch').textContent = `Last fetched: ${formattedDate}`;
         }
 
