@@ -16,7 +16,7 @@ import (
 
 const defaultArticlesPerPage = 20
 const defaultFetchWeeks = 4
-const defaultRepo = "github.com/jbowdre/chillfeed"
+const defaultRepo = "jbowdre/chillfeed"
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -115,10 +115,10 @@ func main() {
 	if config.FetchWeeks != 0 {
 		fetchWeeks = config.FetchWeeks
 	}
-	repo := defaultRepo
-	if config.Repo != "" {
-		repo = strings.TrimPrefix(config.Repo, "https://")
-		repo = strings.TrimPrefix(repo, "http://")
+
+	repo := os.Getenv("GITHUB_REPOSITORY")
+	if repo == "" {
+		repo = defaultRepo
 	}
 
 	var articles []Article

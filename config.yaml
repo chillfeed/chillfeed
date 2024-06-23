@@ -1,6 +1,5 @@
 articlesPerPage: 10
 fetchWeeks: 1
-repo: github.com/jbowdre/chillfeed
 feeds:
   - url: http://krebsonsecurity.com/feed/
   - url: http://whatever.scalzi.com/feed/
