@@ -16,7 +16,7 @@ import (
 
 const defaultArticlesPerPage = 20
 const defaultFetchWeeks = 4
-const defaultRepo = "jbowdre/chillifeed"
+const defaultRepo = "jbowdre/chillfeed"
 
 type Feed struct {
 	URL   string `yaml:"url"`
