@@ -59,7 +59,7 @@ git checkout -b update-from-template
 git merge template/main --allow-unrelated-histories
 ```
 3. Resolve any merge conflicts, paying special attention to any files you've modified
-4. Commit the merged changes
+4. Commit the merged changes (if needed, following conflict resolution)
 ```shell
 git add .
 git commit -m "Merge updates from template repository"
