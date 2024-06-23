@@ -15,7 +15,7 @@ import (
 )
 
 const articlesPerPage = 20
-const maxAgeWeeks = 2
+const fetchWeeks = 2
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -37,8 +37,9 @@ type Article struct {
 }
 
 type Metadata struct {
-	TotalPages  int       `json:"totalPages"`
-	LastFetched time.Time `json:"lastFetched"`
+	TotalPages   int       `json:"totalPages"`
+	LastFetched  time.Time `json:"lastFetched"`
+	FetchedWeeks int       `json:"fetchedWeeks"`
 }
 
 // Helper function to strip HTML tags and limit to a few sentences
@@ -102,7 +103,7 @@ func main() {
 
 	var articles []Article
 	parser := gofeed.NewParser()
-	ageLimit := time.Now().AddDate(0, 0, -7*maxAgeWeeks)
+	ageLimit := time.Now().AddDate(0, 0, -7*fetchWeeks)
 
 	for _, feed := range config.Feeds {
 		parsedFeed, err := parser.ParseURL(feed.URL)
@@ -132,7 +133,7 @@ func main() {
 		}
 
 		if !hasRecentItems {
-			fmt.Printf("Skipping [%s]: No items within the %d weeks.\n", feedTitle, maxAgeWeeks)
+			fmt.Printf("Skipping [%s]: No updates within the last %d week(s).\n", feedTitle, fetchWeeks)
 			continue
 		}
 
@@ -202,7 +203,7 @@ func main() {
 		}
 	}
 
-	// Create a metadata file with total pages info and last fetched time
+	// Create a metadata file with page count, last fetch time, and number of weeks fetched
 	metadataFile, err := os.Create("web/articles/metadata.json")
 	if err != nil {
 		fmt.Printf("Error creating metadata file: %v\n", err)
@@ -211,8 +212,9 @@ func main() {
 	defer metadataFile.Close()
 
 	metadata := Metadata{
-		TotalPages:  totalPages,
-		LastFetched: time.Now().UTC(),
+		TotalPages:   totalPages,
+		LastFetched:  time.Now().UTC(),
+		FetchedWeeks: fetchWeeks,
 	}
 	encoder := json.NewEncoder(metadataFile)
 	err = encoder.Encode(metadata)
