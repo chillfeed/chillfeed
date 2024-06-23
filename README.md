@@ -1,6 +1,6 @@
 # ChillFeed
 
-[![Fetch Feeds](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)](https://github.com/jbowdre/chillfeed/actions/workflows/fetch_feeds.yml)
+[![Fetch Feeds](https://github.com/chillfeed/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)](https://github.com/chillfeed/chillfeed/actions/workflows/fetch_feeds.yml)
 
 ChillFeed is a relaxed feed aggregator that brings your feeds together in one place, with no pressure to keep up. It's designed for those who want a list of cool stuff so they can read what grabs their interest rather than a checklist of items that must be acknowledged.
 
@@ -17,17 +17,16 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 
 ## Setup
 
-1. [Fork this repo](https://github.com/jbowdre/chillfeed/fork) into your GitHub account.
-2. Edit `config.yaml` to define your feeds and basic config:
+1. [Use this template](https://github.com/new?template_name=chillfeed&template_owner=chillfeed) to create your own ChillFeed repo.
+2. Copy `config.yaml.example` to `config.yaml` and edit it to define your feeds:
 ```yaml
 articlesPerPage: 20                           # how many posts to show on each page
 fetchWeeks: 4                                 # how many weeks to go back
 feeds:
   - url: https://runtimeterror.dev/feed.xml
-    title: My Blog                            # override this title
-  - url: http://whatever.scalzi.com/feed/
-  - url: https://pluralistic.net/feed/
-  - url: http://xkcd.com/rss.xml
+    title: jbowdre's Technical Blog           # override this title
+  - url: http://blog.jbowdre.lol/feed/
+    title: jbowdre's Weblog
 ```
 3. Edit `.github/workflows/fetch_feeds.yaml` to set your preferred schedule.
 ```yaml
