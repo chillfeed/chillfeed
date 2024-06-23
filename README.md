@@ -4,7 +4,7 @@
 
 ChillFeed is a relaxed feed aggregator that brings your feeds together in one place, with no pressure to keep up. It's designed for those who want a list of cool stuff so they can read what grabs their interest rather than a checklist of items that must be acknowledged.
 
-See a sample at https://chillfeed.github.io/chillfee
+**Demo:** https://chillfeed.github.io/chillfeed
 
 
 ## Features
