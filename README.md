@@ -45,3 +45,33 @@ on:
 
 That will trigger the `.github/workflows/fetch_feeds.yml` workflow to fetch your configured feeds, and that will commit them as JSON files to the `gh-pages` branch. *That* commit will in turn trigger the default `pages-build-deployment` workflow to build your site. After a few minutes, you'll be able to see your feeds at `https://<username>.github.io/<repo>` or `https://<your_configured_domain>` if you configured a CNAME in step 3.
 
+## Updating Your Repository
+
+To update your ChillFeed instance with the latest changes from the template repository:
+1. In your personal repo, add the template repo as a remote
+```shell
+git remote add template https://github.com/chillfeed/chillfeed.git
+```
+2. Fetch and merge the changes
+```shell
+git fetch template
+git checkout -b update-from-template
+git merge template/main --allow-unrelated-histories
+```
+3. Resolve any merge conflicts, paying special attention to any files you've modified
+4. Commit the merged changes
+```shell
+git add .
+git commit -m "Merge updates from template repository"
+```
+5. Push the merged changes and create a pull request on GitHub
+```shell
+git push origin update-from-template
+```
+6. Review the changes in the pull request, merge it, and delete the update branch
+```shell
+git checkout main
+git pull
+git branch -d update-from-template
+```
+
