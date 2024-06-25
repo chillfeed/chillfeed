@@ -1,273 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChillFeed - Relaxed Feed Aggregator</title>
-    <style>
-        :root {
-            --base03:  #002b36;
-            --base02:  #073642;
-            --base01:  #586e75;
-            --base00:  #657b83;
-            --base0:   #839496;
-            --base1:   #93a1a1;
-            --base2:   #eee8d5;
-            --base3:   #fdf6e3;
-            --yellow:  #b58900;
-            --orange:  #cb4b16;
-            --red:     #dc322f;
-            --magenta: #d33682;
-            --violet:  #6c71c4;
-            --blue:    #268bd2;
-            --cyan:    #2aa198;
-            --green:   #859900;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--base03);
-            color: var(--base0);
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        .article {
-            background-color: var(--base02);
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .article h2 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--cyan);
-        }
-        .article a {
-            color: var(--blue);
-            text-decoration: none;
-        }
-        .article a:hover {
-            text-decoration: underline;
-            color: var(--violet);
-        }
-        .article p {
-            margin-bottom: 10px;
-        }
-        .article small {
-            color: var(--base01);
-            font-size: 0.9em;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background-color: var(--base01);
-            margin: 20px 0;
-        }
-        h1 {
-            color: var(--cyan);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h1 a {
-          color: inherit;
-          text-decoration: none;
-        }
-        h1 a:hover {
-          text-decoration: underline;
-        }
-        h3 {
-            color: var(--yellow);
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        .tagline {
-            text-align: center;
-            color: var(--base1);
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination button {
-            background-color: var(--base02);
-            color: var(--base0);
-            border: none;
-            padding: 10px 15px;
-            margin: 0 5px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .pagination button:hover {
-            background-color: var(--base01);
-        }
-
-        .pagination button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        #lastFetched {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--base01);
-            font-style: italic;
-        }
-        #lastFetched img {
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1><a target="_blank" href="https://github.com/chillfeed/chillfeed">ChillFeed</a></h1>
-        <p class="tagline">Check out these cool posts from the last <span id="fetchedWeeks"></span>.<br>Or don't. It's entirely up to you.<br>No judgment here.</p>
-        <div id="lastFetched">
-          <span id="timeSinceLastFetch"></span><br>
-          <span id="runStatus"></span>
-        </div>
-        <div id="articles"></div>
-        <div class="pagination">
-            <button id="prevPage" disabled>Previous</button>
-            <span id="pageInfo"></span>
-            <button id="nextPage">Next</button>
-        </div>
-    </div>
-
-    <script>
-      let currentPage = 1;
-      let totalPages = 1;
-
-      function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChillFeed - Relaxed Feed Aggregator</title>
+  <style>
+    :root {
+      --base03:  #002b36;
+      --base02:  #073642;
+      --base01:  #586e75;
+      --base00:  #657b83;
+      --base0:   #839496;
+      --base1:   #93a1a1;
+      --base2:   #eee8d5;
+      --base3:   #fdf6e3;
+      --yellow:  #b58900;
+      --orange:  #cb4b16;
+      --red:     #dc322f;
+      --magenta: #d33682;
+      --violet:  #6c71c4;
+      --blue:    #268bd2;
+      --cyan:    #2aa198;
+      --green:   #859900;
     }
 
-      function fetchMetadata() {
-            fetch('articles/metadata.json')
-                .then(response => response.json())
-                .then(metadata => {
-                    totalPages = metadata.totalPages;
-                    fetchedWeeks = metadata.fetchedWeeks;
-                    repo = metadata.repo;
-                    updatePageInfo();
-                    fetchArticles(currentPage);
-                    updateLastFetched(metadata.lastFetched);
-                })
-                .catch(error => {
-                    console.error('Error fetching metadata:', error);
-                });
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--base03);
+      color: var(--base0);
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .article {
+      background-color: var(--base02);
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .article h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: var(--cyan);
+    }
+    .article a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .article a:hover {
+      text-decoration: underline;
+      color: var(--violet);
+    }
+    .article p {
+      margin-bottom: 10px;
+    }
+    .article small {
+      color: var(--base01);
+      font-size: 0.9em;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: var(--base01);
+      margin: 20px 0;
+    }
+    h1 {
+      color: var(--cyan);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 a:hover {
+      text-decoration: underline;
+    }
+    h3 {
+      color: var(--yellow);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .tagline {
+      text-align: center;
+      color: var(--base1);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      background-color: var(--base02);
+      color: var(--base0);
+      border: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .pagination button:hover {
+      background-color: var(--base01);
+    }
+
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #lastFetched {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--base01);
+      font-style: italic;
+    }
+    #lastFetched img {
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a target="_blank" href="https://github.com/chillfeed/chillfeed">ChillFeed</a></h1>
+    <p class="tagline">Check out these cool posts from the last <span id="fetchedWeeks"></span>.<br>Or don't. It's entirely up to you.<br>No judgment here.</p>
+    <div id="lastFetched">
+      <span id="timeSinceLastFetch"></span><br>
+      <span id="runStatus"></span>
+    </div>
+    <div id="articles"></div>
+    <div class="pagination">
+      <button id="prevPage" disabled>Previous</button>
+      <span id="pageInfo"></span>
+      <button id="nextPage">Next</button>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let totalPages = 1;
+
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    function fetchMetadata() {
+      fetch('articles/metadata.json')
+        .then(response => response.json())
+        .then(metadata => {
+          totalPages = metadata.totalPages;
+          fetchedWeeks = metadata.fetchedWeeks;
+          repo = metadata.repo;
+          updatePageInfo();
+          fetchArticles(currentPage);
+          updateLastFetched(metadata.lastFetched);
+        })
+        .catch(error => {
+          console.error('Error fetching metadata:', error);
+        });
+    }
+
+    function updateLastFetched(lastFetched) {
+      const lastFetchedDate = new Date(lastFetched);
+      const formattedDate = timeSinceLastFetch(lastFetchedDate);
+
+      function timeSinceLastFetch(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        const intervals = [
+          { label: 'year', seconds: 31536000 },
+          { label: 'month', seconds: 2592000 },
+          { label: 'day', seconds: 86400 },
+          { label: 'hour', seconds: 3600 },
+          { label: 'minute', seconds: 60 },
+          { label: 'second', seconds: 1 }
+        ];
+
+        for (let i = 0; i < intervals.length; i++) {
+          const interval = intervals[i];
+          const count = Math.floor(seconds / interval.seconds);
+          if (count >= 1) {
+            return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+          }
         }
 
-        function updateLastFetched(lastFetched) {
-            const lastFetchedDate = new Date(lastFetched);
-            const formattedDate = timeSinceLastFetch(lastFetchedDate);
+        return 'Just now';
+      }
+      document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
+      document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
+      document.getElementById('timeSinceLastFetch').textContent = `Last fetched: ${formattedDate}`;
+    }
 
-            function timeSinceLastFetch(date) {
-              const seconds = Math.floor((new Date() - date) / 1000);
-              const intervals = [
-                { label: 'year', seconds: 31536000 },
-                { label: 'month', seconds: 2592000 },
-                { label: 'day', seconds: 86400 },
-                { label: 'hour', seconds: 3600 },
-                { label: 'minute', seconds: 60 },
-                { label: 'second', seconds: 1 }
-              ];
+    function fetchArticles(page) {
+      fetch(`articles/page_${page}.json`)
+        .then(response => response.json())
+        .then(articles => {
+          const articlesContainer = document.getElementById('articles');
+          articlesContainer.innerHTML = '';
 
-              for (let i = 0; i < intervals.length; i++) {
-                const interval = intervals[i];
-                const count = Math.floor(seconds / interval.seconds);
-                if (count >= 1) {
-                  return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
-                }
-              }
-
-              return 'Just now';
+          const groupedArticles = {};
+          articles.forEach(article => {
+            const date = formatDate(article.published);
+            if (!groupedArticles[date]) {
+              groupedArticles[date] = [];
             }
-            document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
-            document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
-            document.getElementById('timeSinceLastFetch').textContent = `Last fetched: ${formattedDate}`;
-        }
+            groupedArticles[date].push(article);
+          });
 
-      function fetchArticles(page) {
-          fetch(`articles/page_${page}.json`)
-              .then(response => response.json())
-              .then(articles => {
-                  const articlesContainer = document.getElementById('articles');
-                  articlesContainer.innerHTML = '';
+          Object.keys(groupedArticles).forEach((date, index) => {
+            if (index > 0) {
+              articlesContainer.appendChild(document.createElement('hr'));
+            }
 
-                  const groupedArticles = {};
-                  articles.forEach(article => {
-                    const date = formatDate(article.published);
-                    if (!groupedArticles[date]) {
-                      groupedArticles[date] = [];
-                    }
-                    groupedArticles[date].push(article);
-                  });
+            const dateHeader = document.createElement('h3');
+            dateHeader.textContent = date;
+            articlesContainer.appendChild(dateHeader);
 
-                  Object.keys(groupedArticles).forEach((date, index) => {
-                    if (index > 0) {
-                      articlesContainer.appendChild(document.createElement('hr'));
-                    }
+            groupedArticles[date].forEach(article => {
+              const articleElement = document.createElement('div');
+              articleElement.className = 'article';
+              articleElement.innerHTML = `
+                <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                <p>${article.summary}</p>
+                <small>
+                  <b>${new Date(article.published).toLocaleDateString()}</b> |
+                  <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
+                  ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
+                </small>
+              `;
+              articlesContainer.appendChild(articleElement);
+            });
+          });
 
-                    const dateHeader = document.createElement('h3');
-                    dateHeader.textContent = date;
-                    articlesContainer.appendChild(dateHeader);
+          updatePageInfo();
+        })
+        .catch(error => {
+          console.error('Error fetching articles:', error);
+          const articlesContainer = document.getElementById('articles');
+          articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
+        });
+    }
 
-                    groupedArticles[date].forEach(article => {
-                      const articleElement = document.createElement('div');
-                      articleElement.className = 'article';
-                      articleElement.innerHTML = `
-                          <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
-                          <p>${article.summary}</p>
-                          <small>
-                              <b>${new Date(article.published).toLocaleDateString()}</b> |
-                              <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
-                              ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
-                          </small>
-                      `;
-                      articlesContainer.appendChild(articleElement);
-                    });
-                  });
+    function updatePageInfo() {
+      document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('prevPage').disabled = currentPage === 1;
+      document.getElementById('nextPage').disabled = currentPage === totalPages;
+    }
 
-                  updatePageInfo();
-              })
-              .catch(error => {
-                console.error('Error fetching articles:', error);
-                const articlesContainer = document.getElementById('articles');
-                articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
-              });
+    document.getElementById('prevPage').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchArticles(currentPage);
       }
+    });
 
-      function updatePageInfo() {
-          document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
-          document.getElementById('prevPage').disabled = currentPage === 1;
-          document.getElementById('nextPage').disabled = currentPage === totalPages;
+    document.getElementById('nextPage').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        fetchArticles(currentPage);
       }
+    });
 
-      document.getElementById('prevPage').addEventListener('click', () => {
-          if (currentPage > 1) {
-              currentPage--;
-              fetchArticles(currentPage);
-          }
-      });
-
-      document.getElementById('nextPage').addEventListener('click', () => {
-          if (currentPage < totalPages) {
-              currentPage++;
-              fetchArticles(currentPage);
-          }
-      });
-
-      fetchMetadata();
+    fetchMetadata();
   </script>
+</body>
+</html>
