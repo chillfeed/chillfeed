@@ -136,11 +136,16 @@
       <span id="timeSinceLastFetch"></span><br>
       <span id="runStatus"></span>
     </div>
+    <div class="pagination">
+      <button id="prevPageTop" disabled>Previous</button>
+      <span id="pageInfoTop"></span>
+      <button id="nextPageTop">Next</button>
+    </div>
     <div id="articles"></div>
     <div class="pagination">
-      <button id="prevPage" disabled>Previous</button>
-      <span id="pageInfo"></span>
-      <button id="nextPage">Next</button>
+      <button id="prevPageBottom" disabled>Previous</button>
+      <span id="pageInfoBottom"></span>
+      <button id="nextPageBottom">Next</button>
     </div>
   </div>
 
@@ -200,71 +205,106 @@
     }
 
     function fetchArticles(page) {
-      fetch(`articles/page_${page}.json`)
-        .then(response => response.json())
-        .then(articles => {
-          const articlesContainer = document.getElementById('articles');
-          articlesContainer.innerHTML = '';
+      return new Promise((resolve, reject) => {
+        fetch(`articles/page_${page}.json`)
+          .then(response => response.json())
+          .then(articles => {
+            const articlesContainer = document.getElementById('articles');
+            articlesContainer.innerHTML = '';
 
-          const groupedArticles = {};
-          articles.forEach(article => {
-            const date = formatDate(article.published);
-            if (!groupedArticles[date]) {
-              groupedArticles[date] = [];
-            }
-            groupedArticles[date].push(article);
-          });
-
-          Object.keys(groupedArticles).forEach((date, index) => {
-            if (index > 0) {
-              articlesContainer.appendChild(document.createElement('hr'));
-            }
-
-            const dateHeader = document.createElement('h3');
-            dateHeader.textContent = date;
-            articlesContainer.appendChild(dateHeader);
-
-            groupedArticles[date].forEach(article => {
-              const articleElement = document.createElement('div');
-              articleElement.className = 'article';
-              articleElement.innerHTML = `
-                <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
-                <p>${article.summary}</p>
-                <small>
-                  <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
-                  ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
-                </small>
-              `;
-              articlesContainer.appendChild(articleElement);
+            const groupedArticles = {};
+            articles.forEach(article => {
+              const date = formatDate(article.published);
+              if (!groupedArticles[date]) {
+                groupedArticles[date] = [];
+              }
+              groupedArticles[date].push(article);
             });
-          });
 
-          updatePageInfo();
-        })
-        .catch(error => {
-          console.error('Error fetching articles:', error);
-          const articlesContainer = document.getElementById('articles');
-          articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
-        });
+            Object.keys(groupedArticles).forEach((date, index) => {
+              if (index > 0) {
+                articlesContainer.appendChild(document.createElement('hr'));
+              }
+
+              const dateHeader = document.createElement('h3');
+              dateHeader.textContent = date;
+              articlesContainer.appendChild(dateHeader);
+
+              groupedArticles[date].forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.className = 'article';
+                articleElement.innerHTML = `
+                  <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                  <p>${article.summary}</p>
+                  <small>
+                    <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
+                    ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
+                  </small>
+                `;
+                articlesContainer.appendChild(articleElement);
+              });
+            });
+
+            updatePageInfo();
+            resolve();
+          })
+          .catch(error => {
+            console.error('Error fetching articles:', error);
+            const articlesContainer = document.getElementById('articles');
+            articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
+          });
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
 
     function updatePageInfo() {
-      document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
-      document.getElementById('prevPage').disabled = currentPage === 1;
-      document.getElementById('nextPage').disabled = currentPage === totalPages;
+      document.getElementById('pageInfoTop').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('pageInfoBottom').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('prevPageTop').disabled = currentPage === 1;
+      document.getElementById('prevPageBottom').disabled = currentPage === 1;
+      document.getElementById('nextPageTop').disabled = currentPage === totalPages;
+      document.getElementById('nextPageBottom').disabled = currentPage === totalPages;
     }
 
-    document.getElementById('prevPage').addEventListener('click', () => {
+    document.getElementById('prevPageTop').addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
-        fetchArticles(currentPage);
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
       }
     });
 
-    document.getElementById('nextPage').addEventListener('click', () => {
+    document.getElementById('prevPageBottom').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    document.getElementById('nextPageTop').addEventListener('click', () => {
       if (currentPage < totalPages) {
         currentPage++;
-        fetchArticles(currentPage);
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    document.getElementById('nextPageBottom').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
       }
     });
 
