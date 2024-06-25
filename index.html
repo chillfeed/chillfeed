@@ -231,7 +231,6 @@
                 <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
                 <p>${article.summary}</p>
                 <small>
-                  <b>${new Date(article.published).toLocaleDateString()}</b> |
                   <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
                   ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
                 </small>
