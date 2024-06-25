@@ -137,23 +137,51 @@
       let currentPage = 1;
       let totalPages = 1;
 
-      function formatDate(dateString) {
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          return new Date(dateString).toLocaleDateString(undefined, options);
-      }
-
       function fetchMetadata() {
-          fetch('articles/metadata.json')
-              .then(response => response.json())
-              .then(metadata => {
-                  totalPages = metadata.totalPages;
-                  updatePageInfo();
-                  fetchArticles(currentPage);
-              })
-              .catch(error => {
-                  console.error('Error fetching metadata:', error);
-              });
-      }
+            fetch('articles/metadata.json')
+                .then(response => response.json())
+                .then(metadata => {
+                    totalPages = metadata.totalPages;
+                    fetchedWeeks = metadata.fetchedWeeks;
+                    repo = metadata.repo;
+                    updatePageInfo();
+                    fetchArticles(currentPage);
+                    updateLastFetched(metadata.lastFetched);
+                })
+                .catch(error => {
+                    console.error('Error fetching metadata:', error);
+                });
+        }
+
+        function updateLastFetched(lastFetched) {
+            const lastFetchedDate = new Date(lastFetched);
+            const formattedDate = timeSinceLastFetch(lastFetchedDate);
+
+            function timeSinceLastFetch(date) {
+              const seconds = Math.floor((new Date() - date) / 1000);
+              const intervals = [
+                { label: 'year', seconds: 31536000 },
+                { label: 'month', seconds: 2592000 },
+                { label: 'day', seconds: 86400 },
+                { label: 'hour', seconds: 3600 },
+                { label: 'minute', seconds: 60 },
+                { label: 'second', seconds: 1 }
+              ];
+
+              for (let i = 0; i < intervals.length; i++) {
+                const interval = intervals[i];
+                const count = Math.floor(seconds / interval.seconds);
+                if (count >= 1) {
+                  return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+                }
+              }
+
+              return 'Just now';
+            }
+            document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
+            document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
+            document.getElementById('timeSinceLastFetch').textContent = `Last fetched: ${formattedDate}`;
+        }
 
       function fetchArticles(page) {
           fetch(`articles/page_${page}.json`)
@@ -161,42 +189,20 @@
               .then(articles => {
                   const articlesContainer = document.getElementById('articles');
                   articlesContainer.innerHTML = '';
-
-                  // Group articles by date
-                  const groupedArticles = {};
                   articles.forEach(article => {
-                      const date = formatDate(article.published);
-                      if (!groupedArticles[date]) {
-                          groupedArticles[date] = [];
-                      }
-                      groupedArticles[date].push(article);
+                      const articleElement = document.createElement('div');
+                      articleElement.className = 'article';
+                      articleElement.innerHTML = `
+                          <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                          <p>${article.summary}</p>
+                          <small>
+                              <b>${new Date(article.published).toLocaleDateString()}</b> |
+                              <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
+                              ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
+                          </small>
+                      `;
+                      articlesContainer.appendChild(articleElement);
                   });
-
-                  // Render grouped articles
-                  Object.keys(groupedArticles).forEach((date, index) => {
-                      if (index > 0) {
-                          articlesContainer.appendChild(document.createElement('hr'));
-                      }
-
-                      const dateHeader = document.createElement('h3');
-                      dateHeader.textContent = date;
-                      articlesContainer.appendChild(dateHeader);
-
-                      groupedArticles[date].forEach(article => {
-                          const articleElement = document.createElement('div');
-                          articleElement.className = 'article';
-                          articleElement.innerHTML = `
-                              <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
-                              <p>${article.summary}</p>
-                              <small>
-                                  Source: ${article.feedTitle}
-                                  ${article.feedAuthor ? `by ${article.feedAuthor}` : ''}
-                              </small>
-                          `;
-                          articlesContainer.appendChild(articleElement);
-                      });
-                  });
-
                   updatePageInfo();
               })
               .catch(error => {
@@ -226,6 +232,5 @@
           }
       });
 
-    fetchMetadata();
+      fetchMetadata();
   </script>
-</body>
