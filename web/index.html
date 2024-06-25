@@ -63,6 +63,12 @@
             color: var(--base01);
             font-size: 0.9em;
         }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: var(--base01);
+            margin: 20px 0;
+        }
         h1 {
             color: var(--cyan);
             text-align: center;
@@ -74,6 +80,11 @@
         }
         h1 a:hover {
           text-decoration: underline;
+        }
+        h3 {
+            color: var(--yellow);
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         .tagline {
             text-align: center;
@@ -137,6 +148,11 @@
       let currentPage = 1;
       let totalPages = 1;
 
+      function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
       function fetchMetadata() {
             fetch('articles/metadata.json')
                 .then(response => response.json())
@@ -189,7 +205,26 @@
               .then(articles => {
                   const articlesContainer = document.getElementById('articles');
                   articlesContainer.innerHTML = '';
+
+                  const groupedArticles = {};
                   articles.forEach(article => {
+                    const date = formatDate(article.published);
+                    if (!groupedArticles[date]) {
+                      groupedArticles[date] = [];
+                    }
+                    groupedArticles[date].push(article);
+                  });
+
+                  Object.keys(groupedArticles).forEach((date, index) => {
+                    if (index > 0) {
+                      articlesContainer.appendChild(document.createElement('hr'));
+                    }
+
+                    const dateHeader = document.createElement('h3');
+                    dateHeader.textContent = date;
+                    articlesContainer.appendChild(dateHeader);
+
+                    groupedArticles[date].forEach(article => {
                       const articleElement = document.createElement('div');
                       articleElement.className = 'article';
                       articleElement.innerHTML = `
@@ -202,13 +237,15 @@
                           </small>
                       `;
                       articlesContainer.appendChild(articleElement);
+                    });
                   });
+
                   updatePageInfo();
               })
               .catch(error => {
-                  console.error('Error fetching articles:', error);
-                  const articlesContainer = document.getElementById('articles');
-                  articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>';
+                console.error('Error fetching articles:', error);
+                const articlesContainer = document.getElementById('articles');
+                articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
               });
       }
 
