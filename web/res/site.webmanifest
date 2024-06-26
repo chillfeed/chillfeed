@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "ChillFeed - Relaxed Feed Aggregator",
+    "short_name": "ChillFeed",
     "icons": [
         {
             "src": "/res/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#002b36",
+    "background_color": "#002b36",
     "display": "standalone"
 }
