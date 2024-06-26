@@ -18,7 +18,7 @@ const defaultArticlesPerPage = 20
 const defaultConfigFile = "config.yaml.example"
 const defaultFetchWeeks = 4
 const defaultRepo = "chillfeed/chillfeed"
-const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions"
+const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions."
 
 type Feed struct {
 	URL   string `yaml:"url"`

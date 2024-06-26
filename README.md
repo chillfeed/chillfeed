@@ -26,7 +26,7 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 articlesPerPage: 20                           # how many posts to show on each page
 fetchWeeks: 4                                 # how many weeks to go back
 tagline: |                                    # custom header text (supports HTML)
-  ☕ A relaxed feed aggregator powered by GitHub Actions
+  ☕ A relaxed feed aggregator powered by GitHub Actions.
 feeds:
   - url: https://runtimeterror.dev/feed.xml
     title: jbowdre's Technical Blog           # override this title

@@ -222,7 +222,7 @@
       }
       document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
       document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
-      document.getElementById('timeSinceLastFetch').textContent = `Last fetched ${formattedDate}`;
+      document.getElementById('timeSinceLastFetch').textContent = `Last fetched ${formattedDate}.`;
       document.getElementById('tagline').innerHTML = `${tagline}`;
     }
 
