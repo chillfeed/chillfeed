@@ -78,7 +78,7 @@
     h1 {
       color: var(--cyan);
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
     h1 a {
       color: inherit;
@@ -92,11 +92,13 @@
       margin-top: 20px;
       margin-bottom: 10px;
     }
-    .tagline {
+    #tagline {
       text-align: center;
       color: var(--base1);
-      margin-bottom: 20px;
-      font-style: italic;
+      margin-bottom: 10px;
+    }
+    #tagline a {
+      color: var(--green);
     }
     .pagination {
       display: flex;
@@ -132,15 +134,24 @@
       vertical-align: middle;
       margin-left: 10px;
     }
+    .footer {
+      text-align: center;
+      color: var(--base1);
+      font-size: 0.8em;
+    }
+    .footer a:link, .footer a:visited {
+      color: var(--green);
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1><a target="_blank" href="https://github.com/chillfeed/chillfeed">ChillFeed</a></h1>
-    <p class="tagline">Check out these cool posts from the last <span id="fetchedWeeks"></span>.<br>Or don't. It's entirely up to you.<br>No judgment here.</p>
+    <h1><a onclick="location.reload()" style="cursor:pointer;" title="Click to refresh">ChillFeed</a></h1>
+    <div id="tagline">A relaxed feed aggregator powered by GitHub Actions.</div>
     <div id="lastFetched">
-      <span id="timeSinceLastFetch"></span><br>
-      <span id="runStatus"></span>
+      <div>Showing posts from the last <span id="fetchedWeeks"></span>.</div>
+      <div id="timeSinceLastFetch"></div>
+      <div id="runStatus"></div>
     </div>
     <div class="pagination">
       <button id="prevPageTop" disabled>Previous</button>
@@ -153,6 +164,9 @@
       <span id="pageInfoBottom"></span>
       <button id="nextPageBottom">Next</button>
     </div>
+  </div>
+  <div class="footer">
+    <p><a target="_blank" href="https://github.com/chillfeed/chillfeed">ChillFeed</a>, a relaxed feed aggregator powered by GitHub Actions.</p>
   </div>
 
   <script>
@@ -171,6 +185,7 @@
           totalPages = metadata.totalPages;
           fetchedWeeks = metadata.fetchedWeeks;
           repo = metadata.repo;
+          tagline = metadata.tagline;
           updatePageInfo();
           fetchArticles(currentPage);
           updateLastFetched(metadata.lastFetched);
@@ -207,7 +222,8 @@
       }
       document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
       document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
-      document.getElementById('timeSinceLastFetch').textContent = `Last fetched: ${formattedDate}`;
+      document.getElementById('timeSinceLastFetch').textContent = `Last fetched ${formattedDate}`;
+      document.getElementById('tagline').innerHTML = `${tagline}`;
     }
 
     function fetchArticles(page) {
