@@ -15,9 +15,10 @@ import (
 )
 
 const defaultArticlesPerPage = 20
+const defaultConfigFile = "config.yaml.example"
 const defaultFetchWeeks = 4
 const defaultRepo = "chillfeed/chillfeed"
-const defaultConfigFile = "config.yaml.example"
+const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions"
 
 type Feed struct {
 	URL   string `yaml:"url"`
@@ -29,6 +30,7 @@ type Config struct {
 	ArticlesPerPage int    `yaml:"articlesPerPage,omitempty"`
 	FetchWeeks      int    `yaml:"fetchWeeks,omitempty"`
 	Repo            string `yaml:"repo,omitempty"`
+	Tagline         string `yaml:"tagline,omitempty"`
 }
 
 type Article struct {
@@ -46,6 +48,7 @@ type Metadata struct {
 	LastFetched  time.Time `json:"lastFetched"`
 	FetchedWeeks int       `json:"fetchedWeeks"`
 	Repo         string    `json:"repo"`
+	Tagline      string    `json:"tagline"`
 }
 
 // Helper function to strip HTML tags and limit to a few sentences
@@ -139,6 +142,11 @@ func main() {
 	repo := os.Getenv("GITHUB_REPOSITORY")
 	if repo == "" {
 		repo = defaultRepo
+	}
+
+	tagline := defaultTagline
+	if config.Tagline != "" {
+		tagline = config.Tagline
 	}
 
 	var articles []Article
@@ -272,6 +280,7 @@ func main() {
 		LastFetched:  time.Now().UTC(),
 		FetchedWeeks: fetchWeeks,
 		Repo:         repo,
+		Tagline:      tagline,
 	}
 	encoder := json.NewEncoder(metadataFile)
 	err = encoder.Encode(metadata)

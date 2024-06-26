@@ -25,13 +25,15 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 ```yaml
 articlesPerPage: 20                           # how many posts to show on each page
 fetchWeeks: 4                                 # how many weeks to go back
+tagline: |                                    # custom header text (supports HTML)
+  ☕ A relaxed feed aggregator powered by GitHub Actions
 feeds:
   - url: https://runtimeterror.dev/feed.xml
     title: jbowdre's Technical Blog           # override this title
   - url: http://blog.jbowdre.lol/feed/
     title: jbowdre's Weblog
 ```
-5. Edit `.github/workflows/fetch_feeds.yaml` to set your preferred schedule.
+5. Edit `.github/workflows/fetch_feeds.yaml` to set your preferred schedule (consider using [crontab guru](https://crontab.guru/) if you need help with the schedule expression).
 ```yaml
 on:
   push:
