@@ -20,9 +20,14 @@ const defaultFetchWeeks = 4
 const defaultRepo = "chillfeed/chillfeed"
 const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions."
 
-type Feed struct {
-	Title string `yaml:"title,omitempty"`
-	URL   string `yaml:"url"`
+type Article struct {
+	FeedAuthor string    `json:"feedAuthor"`
+	FeedTitle  string    `json:"feedTitle"`
+	Homepage   string    `json:"homepage"`
+	Link       string    `json:"link"`
+	Published  time.Time `json:"published"`
+	Summary    string    `json:"summary"`
+	Title      string    `json:"title"`
 }
 
 type Config struct {
@@ -33,14 +38,9 @@ type Config struct {
 	Tagline         string `yaml:"tagline,omitempty"`
 }
 
-type Article struct {
-	FeedAuthor string    `json:"feedAuthor"`
-	FeedTitle  string    `json:"feedTitle"`
-	Homepage   string    `json:"homepage"`
-	Link       string    `json:"link"`
-	Published  time.Time `json:"published"`
-	Summary    string    `json:"summary"`
-	Title      string    `json:"title"`
+type Feed struct {
+	Title string `yaml:"title,omitempty"`
+	URL   string `yaml:"url"`
 }
 
 type Metadata struct {
