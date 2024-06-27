@@ -21,34 +21,34 @@ const defaultRepo = "chillfeed/chillfeed"
 const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions."
 
 type Feed struct {
-	URL   string `yaml:"url"`
 	Title string `yaml:"title,omitempty"`
+	URL   string `yaml:"url"`
 }
 
 type Config struct {
-	Feeds           []Feed `yaml:"feeds"`
 	ArticlesPerPage int    `yaml:"articlesPerPage,omitempty"`
+	Feeds           []Feed `yaml:"feeds"`
 	FetchWeeks      int    `yaml:"fetchWeeks,omitempty"`
 	Repo            string `yaml:"repo,omitempty"`
 	Tagline         string `yaml:"tagline,omitempty"`
 }
 
 type Article struct {
-	Title      string    `json:"title"`
-	Summary    string    `json:"summary"`
+	FeedAuthor string    `json:"feedAuthor"`
+	FeedTitle  string    `json:"feedTitle"`
+	Homepage   string    `json:"homepage"`
 	Link       string    `json:"link"`
 	Published  time.Time `json:"published"`
-	FeedTitle  string    `json:"feedTitle"`
-	FeedAuthor string    `json:"feedAuthor"`
-	Homepage   string    `json:"homepage"`
+	Summary    string    `json:"summary"`
+	Title      string    `json:"title"`
 }
 
 type Metadata struct {
-	TotalPages   int       `json:"totalPages"`
-	LastFetched  time.Time `json:"lastFetched"`
 	FetchedWeeks int       `json:"fetchedWeeks"`
+	LastFetched  time.Time `json:"lastFetched"`
 	Repo         string    `json:"repo"`
 	Tagline      string    `json:"tagline"`
+	TotalPages   int       `json:"totalPages"`
 }
 
 // Helper function to strip HTML tags and limit to a few sentences
