@@ -201,13 +201,13 @@ func main() {
 			limitedSummary := limitSummary(summary, 3) // Limit to 3 sentences
 
 			articles = append(articles, Article{
-				Title:      item.Title,
-				Summary:    limitedSummary,
+				FeedAuthor: feedAuthor,
+				FeedTitle:  feedTitle,
+				Homepage:   feedHomepage,
 				Link:       item.Link,
 				Published:  *item.PublishedParsed,
-				FeedTitle:  feedTitle,
-				FeedAuthor: feedAuthor,
-				Homepage:   feedHomepage,
+				Summary:    limitedSummary,
+				Title:      item.Title,
 			})
 		}
 	}
@@ -276,11 +276,11 @@ func main() {
 	defer metadataFile.Close()
 
 	metadata := Metadata{
-		TotalPages:   totalPages,
-		LastFetched:  time.Now().UTC(),
 		FetchedWeeks: fetchWeeks,
+		LastFetched:  time.Now().UTC(),
 		Repo:         repo,
 		Tagline:      tagline,
+		TotalPages:   totalPages,
 	}
 	encoder := json.NewEncoder(metadataFile)
 	err = encoder.Encode(metadata)
