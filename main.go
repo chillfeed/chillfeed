@@ -43,7 +43,7 @@ type Feed struct {
 	URL   string `yaml:"url"`
 }
 
-type Metadata struct {
+type PageMetadata struct {
 	FetchedWeeks int       `json:"fetchedWeeks"`
 	LastFetched  time.Time `json:"lastFetched"`
 	Repo         string    `json:"repo"`
@@ -267,25 +267,25 @@ func main() {
 		}
 	}
 
-	// Create a metadata file with page count, last fetch time, and number of weeks fetched
-	metadataFile, err := os.Create("web/articles/metadata.json")
+	// Create a page metadata file with page count, last fetch time, and number of weeks fetched
+	pageMetadataFile, err := os.Create("web/articles/page_metadata.json")
 	if err != nil {
-		fmt.Printf("Error creating metadata file: %v\n", err)
+		fmt.Printf("Error creating page metadata file: %v\n", err)
 		return
 	}
-	defer metadataFile.Close()
+	defer pageMetadataFile.Close()
 
-	metadata := Metadata{
+	pageMetadata := PageMetadata{
 		FetchedWeeks: fetchWeeks,
 		LastFetched:  time.Now().UTC(),
 		Repo:         repo,
 		Tagline:      tagline,
 		TotalPages:   totalPages,
 	}
-	encoder := json.NewEncoder(metadataFile)
-	err = encoder.Encode(metadata)
+	encoder := json.NewEncoder(pageMetadataFile)
+	err = encoder.Encode(pageMetadata)
 	if err != nil {
-		fmt.Printf("Error encoding metadata JSON: %v\n", err)
+		fmt.Printf("Error encoding page metadata JSON: %v\n", err)
 	}
 
 	fmt.Println("Articles fetched, sorted, and saved successfully.")
