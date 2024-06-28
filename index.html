@@ -178,20 +178,20 @@
       return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
-    function fetchMetadata() {
-      fetch('articles/metadata.json')
+    function fetchPageMetadata() {
+      fetch('articles/page_metadata.json')
         .then(response => response.json())
-        .then(metadata => {
-          totalPages = metadata.totalPages;
-          fetchedWeeks = metadata.fetchedWeeks;
-          repo = metadata.repo;
-          tagline = metadata.tagline;
+        .then(pageMetadata => {
+          totalPages = pageMetadata.totalPages;
+          fetchedWeeks = pageMetadata.fetchedWeeks;
+          repo = pageMetadata.repo;
+          tagline = pageMetadata.tagline;
           updatePageInfo();
           fetchArticles(currentPage);
-          updateLastFetched(metadata.lastFetched);
+          updateLastFetched(pageMetadata.lastFetched);
         })
         .catch(error => {
-          console.error('Error fetching metadata:', error);
+          console.error('Error fetching page metadata:', error);
         });
     }
 
@@ -243,7 +243,13 @@
               groupedArticles[date].push(article);
             });
 
-            Object.keys(groupedArticles).forEach((date, index) => {
+            Object.keys(groupedArticles).forEach(date => {
+              groupedArticles[date].sort((a, b) =>
+                new Date(b.firstFetched) - new Date(a.firstFetched)
+              );
+            });
+
+            Object.keys(groupedArticles).sort((a, b) => new Date(b) - new Date(a)).forEach((date, index) => {
               if (index > 0) {
                 articlesContainer.appendChild(document.createElement('hr'));
               }
@@ -330,7 +336,7 @@
       }
     });
 
-    fetchMetadata();
+    fetchPageMetadata();
   </script>
 </body>
 </html>
