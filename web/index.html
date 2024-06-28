@@ -243,7 +243,13 @@
               groupedArticles[date].push(article);
             });
 
-            Object.keys(groupedArticles).forEach((date, index) => {
+            Object.keys(groupedArticles).forEach(date => {
+              groupedArticles[date].sort((a, b) =>
+                new Date(b.firstFetched) - new Date(a.firstFetched)
+              );
+            });
+
+            Object.keys(groupedArticles).sort((a, b) => new Date(b) - new Date(a)).forEach((date, index) => {
               if (index > 0) {
                 articlesContainer.appendChild(document.createElement('hr'));
               }
