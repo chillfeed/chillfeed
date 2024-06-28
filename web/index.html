@@ -262,7 +262,7 @@
                 const articleElement = document.createElement('div');
                 articleElement.className = 'article';
                 articleElement.innerHTML = `
-                  <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                  <h2><a href="${article.link}" target="_blank">${article.title || '[Untitled]'}</a></h2>
                   <p>${article.summary}</p>
                   <small>
                     <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
