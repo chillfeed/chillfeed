@@ -10,10 +10,11 @@ ChillFeed is a relaxed feed aggregator that brings your feeds together in one pl
 ## Features
 
 - Aggregates multiple RSS, Atom, and JSON feeds
+- **Not a reader** - opens articles on the source site, as the author intended
 - Updates on a schedule via GitHub Actions
 - Served via GitHub Pages
 - No read/unread tracking - browse at your leisure
-- **Not a reader** - opens articles on the source site, as the author intended
+- Articles grouped by published date, sorted by fetched time to avoid posts slipping in unnoticed
 
 ## Setup
 
