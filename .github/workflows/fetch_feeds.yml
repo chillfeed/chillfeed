@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'web/fetch_log.json'
   schedule:
     - cron: '0 */4 * * *'  # Run every 4 hours
   workflow_dispatch:  # Allow manual trigger
@@ -31,6 +33,12 @@ jobs:
 
     - name: Run feed fetcher
       run: go run .
+
+    - name: Commit fetch log
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Update feed fetch log"
+        file_pattern: web/fetch_log.json
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
