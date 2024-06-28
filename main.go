@@ -11,7 +11,7 @@ import (
 
 	"github.com/mmcdole/gofeed"
 	"golang.org/x/net/html"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 const defaultArticlesPerPage = 20
