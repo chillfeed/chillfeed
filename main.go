@@ -45,7 +45,8 @@ type Feed struct {
 }
 
 type FetchLog struct {
-	Articles map[string]time.Time `json:"articles"`
+	Articles    map[string]time.Time `json:"articles"`
+	LastCleanup time.Time            `json:"lastCleanup"`
 }
 
 type PageMetadata struct {
@@ -57,7 +58,10 @@ type PageMetadata struct {
 }
 
 func loadFetchLog() (FetchLog, error) {
-	data := FetchLog{Articles: make(map[string]time.Time)}
+	data := FetchLog{
+		Articles:    make(map[string]time.Time),
+		LastCleanup: time.Now(),
+	}
 	file, err := os.ReadFile("web/fetch_log.json")
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -75,6 +79,18 @@ func saveFetchLog(data FetchLog) error {
 		return err
 	}
 	return os.WriteFile("web/fetch_log.json", file, 0644)
+}
+
+func cleanupFetchLog(data *FetchLog, fetchWeeks int) {
+	now := time.Now()
+	cutoffTime := now.AddDate(0, 0, -14*fetchWeeks) // keep 2x fetch weeks
+
+	for url, fetchTime := range data.Articles {
+		if fetchTime.Before(cutoffTime) {
+			delete(data.Articles, url)
+		}
+	}
+	data.LastCleanup = now
 }
 
 // Helper function to strip HTML tags and limit to a few sentences
@@ -179,6 +195,10 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error loading fetch log: %v\n", err)
 		return
+	}
+
+	if time.Since(fetchLog.LastCleanup) > 24*time.Hour {
+		cleanupFetchLog(&fetchLog, fetchWeeks)
 	}
 
 	now := time.Now()
