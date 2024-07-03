@@ -58,15 +58,6 @@ type PageMetadata struct {
 	TotalPages   int       `json:"totalPages"`
 }
 
-// type UserAgentTransport struct {
-// 	http.RoundTripper
-// }
-
-// func (c *UserAgentTransport) RoundTrip(r *http.Request) (*http.Response, error) {
-// 	r.Header.Set("User-Agent", "chillfeed:<version string> (by /u/<reddit username>)")
-// 	return c.RoundTripper.RoundTrip(r)
-// }
-
 func loadFetchLog() (FetchLog, error) {
 	data := FetchLog{
 		Articles:    make(map[string]time.Time),
