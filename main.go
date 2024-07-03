@@ -19,6 +19,7 @@ const defaultConfigFile = "config.yaml.example"
 const defaultFetchWeeks = 4
 const defaultRepo = "chillfeed/chillfeed"
 const defaultTagline = "☕ A relaxed feed aggregator powered by GitHub Actions."
+const userAgent = "ChillFeed/1.0.0 (https://github.com/chillfeed/chillfeed) gofeed/1.3.0"
 
 type Article struct {
 	FeedAuthor   string    `json:"feedAuthor"`
@@ -56,6 +57,15 @@ type PageMetadata struct {
 	Tagline      string    `json:"tagline"`
 	TotalPages   int       `json:"totalPages"`
 }
+
+// type UserAgentTransport struct {
+// 	http.RoundTripper
+// }
+
+// func (c *UserAgentTransport) RoundTrip(r *http.Request) (*http.Response, error) {
+// 	r.Header.Set("User-Agent", "chillfeed:<version string> (by /u/<reddit username>)")
+// 	return c.RoundTripper.RoundTrip(r)
+// }
 
 func loadFetchLog() (FetchLog, error) {
 	data := FetchLog{
@@ -205,6 +215,7 @@ func main() {
 
 	var articles []Article
 	parser := gofeed.NewParser()
+	parser.UserAgent = userAgent
 	ageLimit := time.Now().AddDate(0, 0, -7*fetchWeeks)
 
 	for _, feed := range config.Feeds {
