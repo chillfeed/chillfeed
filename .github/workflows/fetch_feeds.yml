@@ -28,14 +28,25 @@ jobs:
     - name: Install dependencies
       run: go mod download
 
+    - name: Fetch log from data branch
+      uses: actions/checkout@v4
+      with:
+        ref: fetch-log
+        sparse-checkout: |
+          fetch_log.json
+        sparse-checkout-cone-mode: false
+      continue-on-error: true
+
     - name: Run feed fetcher
       run: go run .
 
     - name: Commit fetch log
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
+        branch: fetch-log
+        create_branch: true
         commit_message: "Update feed fetch log"
-        file_pattern: web/fetch_log.json
+        file_pattern: fetch_log.json
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
