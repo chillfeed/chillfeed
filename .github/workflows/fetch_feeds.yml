@@ -28,14 +28,22 @@ jobs:
     - name: Install dependencies
       run: go mod download
 
+    - name: Download previous fetch log
+      uses: actions/download-artifact@v4
+      with:
+        name: fetch-log
+        path: .
+      continue-on-error: true
+
     - name: Run feed fetcher
       run: go run .
 
-    - name: Commit fetch log
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Upload fetch log
+      uses: actions/upload-artifact@v4
       with:
-        commit_message: "Update feed fetch log"
-        file_pattern: web/fetch_log.json
+        name: fetch-log
+        path: fetch_log.json
+        retention-days: 7
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
