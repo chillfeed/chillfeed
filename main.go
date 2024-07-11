@@ -63,7 +63,7 @@ func loadFetchLog() (FetchLog, error) {
 		Articles:    make(map[string]time.Time),
 		LastCleanup: time.Now(),
 	}
-	file, err := os.ReadFile("web/fetch_log.json")
+	file, err := os.ReadFile("fetch_log.json")
 	if err != nil {
 		if os.IsNotExist(err) {
 			return data, nil
@@ -79,7 +79,7 @@ func saveFetchLog(data FetchLog) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile("web/fetch_log.json", file, 0644)
+	return os.WriteFile("fetch_log.json", file, 0644)
 }
 
 func cleanupFetchLog(data *FetchLog, fetchWeeks int) {

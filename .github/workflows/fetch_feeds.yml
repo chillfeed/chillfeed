@@ -28,14 +28,22 @@ jobs:
     - name: Install dependencies
       run: go mod download
 
+    - name: Retrieve fetch log
+      run: |
+        git fetch origin data:data || git checkout --orphan data
+        git checkout data -- fetch_log.json || echo "fetch_log.json does not exist yet"
+        git checkout main
+
     - name: Run feed fetcher
       run: go run .
 
     - name: Commit fetch log
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
+        branch: data
+        create_branch: true
         commit_message: "Update feed fetch log"
-        file_pattern: web/fetch_log.json
+        file_pattern: fetch_log.json
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
