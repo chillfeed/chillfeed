@@ -37,6 +37,9 @@ jobs:
         sparse-checkout-cone-mode: false
       continue-on-error: true
 
+    - name: Switch back to main
+      run: git checkout main
+
     - name: Run feed fetcher
       run: go run .
 
