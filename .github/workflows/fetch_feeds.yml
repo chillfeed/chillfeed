@@ -37,6 +37,14 @@ jobs:
     - name: Run feed fetcher
       run: go run .
 
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: web
+        publish_branch: gh-pages
+        cname: ${{ secrets.CNAME }}
+
     - name: Commit fetch log
       run: |
         git config user.name github-actions
@@ -46,11 +54,3 @@ jobs:
         git add fetch_log.json
         git commit -m "Update fetch log" || echo "No changes to commit"
         git push origin data
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: web
-        publish_branch: gh-pages
-        cname: ${{ secrets.CNAME }}
