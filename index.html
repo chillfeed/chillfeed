@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChillFeed - Relaxed Feed Aggregator</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="apple-touch-icon" sizes="180x180" href="/res/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/res/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/res/favicon-16x16.png">
+  <link rel="manifest" href="/res/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    :root {
+      --base03:  #002b36;
+      --base02:  #073642;
+      --base01:  #586e75;
+      --base00:  #657b83;
+      --base0:   #839496;
+      --base1:   #93a1a1;
+      --base2:   #eee8d5;
+      --base3:   #fdf6e3;
+      --yellow:  #b58900;
+      --orange:  #cb4b16;
+      --red:     #dc322f;
+      --magenta: #d33682;
+      --violet:  #6c71c4;
+      --blue:    #268bd2;
+      --cyan:    #2aa198;
+      --green:   #859900;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--base03);
+      color: var(--base0);
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .article {
+      background-color: var(--base02);
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .article h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: var(--cyan);
+    }
+    .article a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .article a:hover {
+      text-decoration: underline;
+      color: var(--violet);
+    }
+    .article p {
+      margin-bottom: 10px;
+    }
+    .article small {
+      color: var(--base01);
+      font-size: 0.9em;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: var(--base01);
+      margin: 20px 0;
+    }
+    h1 {
+      color: var(--cyan);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    h1 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 a:hover {
+      text-decoration: underline;
+    }
+    h3 {
+      color: var(--yellow);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    #tagline {
+      text-align: center;
+      color: var(--base1);
+      margin-bottom: 10px;
+    }
+    #tagline a {
+      color: var(--green);
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      background-color: var(--base02);
+      color: var(--base0);
+      border: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .pagination button:hover {
+      background-color: var(--base01);
+    }
+
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #lastFetched {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--base01);
+      font-style: italic;
+    }
+    #lastFetched img {
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+    .footer {
+      text-align: center;
+      color: var(--base1);
+      font-size: 0.8em;
+    }
+    .footer a:link, .footer a:visited {
+      color: var(--green);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a onclick="location.reload()" style="cursor:pointer;" title="Click to refresh">ChillFeed</a></h1>
+    <div id="tagline">A relaxed feed aggregator powered by GitHub Actions.</div>
+    <div id="lastFetched">
+      <div>Showing posts from the last <span id="fetchedWeeks"></span>.</div>
+      <div id="timeSinceLastFetch"></div>
+      <div id="runStatus"></div>
+    </div>
+    <div class="pagination">
+      <button id="prevPageTop" disabled>Previous</button>
+      <span id="pageInfoTop"></span>
+      <button id="nextPageTop">Next</button>
+    </div>
+    <div id="articles"></div>
+    <div class="pagination">
+      <button id="prevPageBottom" disabled>Previous</button>
+      <span id="pageInfoBottom"></span>
+      <button id="nextPageBottom">Next</button>
+    </div>
+  </div>
+  <div class="footer">
+    <p><a target="_blank" href="https://github.com/chillfeed/chillfeed">ChillFeed</a>, a relaxed feed aggregator powered by GitHub Actions.</p>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let totalPages = 1;
+
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    function fetchPageMetadata() {
+      fetch('articles/page_metadata.json')
+        .then(response => response.json())
+        .then(pageMetadata => {
+          totalPages = pageMetadata.totalPages;
+          fetchedWeeks = pageMetadata.fetchedWeeks;
+          repo = pageMetadata.repo;
+          tagline = pageMetadata.tagline;
+          updatePageInfo();
+          fetchArticles(currentPage);
+          updateLastFetched(pageMetadata.lastFetched);
+        })
+        .catch(error => {
+          console.error('Error fetching page metadata:', error);
+        });
+    }
+
+    function updateLastFetched(lastFetched) {
+      const lastFetchedDate = new Date(lastFetched);
+      const formattedDate = timeSinceLastFetch(lastFetchedDate);
+
+      function timeSinceLastFetch(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        const intervals = [
+          { label: 'year', seconds: 31536000 },
+          { label: 'month', seconds: 2592000 },
+          { label: 'day', seconds: 86400 },
+          { label: 'hour', seconds: 3600 },
+          { label: 'minute', seconds: 60 },
+          { label: 'second', seconds: 1 }
+        ];
+
+        for (let i = 0; i < intervals.length; i++) {
+          const interval = intervals[i];
+          const count = Math.floor(seconds / interval.seconds);
+          if (count >= 1) {
+            return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+          }
+        }
+
+        return 'Just now';
+      }
+      document.getElementById('runStatus').innerHTML = `<a target="_blank" href="https://github.com/${repo}/actions/workflows/fetch_feeds.yml"><img src="https://github.com/${repo}/actions/workflows/fetch_feeds.yml/badge.svg" alt="Fetch Feeds Status"></a>`;
+      document.getElementById('fetchedWeeks').textContent = fetchedWeeks === 1 ? 'week' : `${fetchedWeeks} weeks`;
+      document.getElementById('timeSinceLastFetch').textContent = `Last fetched ${formattedDate}.`;
+      document.getElementById('tagline').innerHTML = `${tagline}`;
+    }
+
+    function fetchArticles(page) {
+      return new Promise((resolve, reject) => {
+        fetch(`articles/page_${page}.json`)
+          .then(response => response.json())
+          .then(articles => {
+            const articlesContainer = document.getElementById('articles');
+            articlesContainer.innerHTML = '';
+
+            const groupedArticles = {};
+            articles.forEach(article => {
+              const date = formatDate(article.published);
+              if (!groupedArticles[date]) {
+                groupedArticles[date] = [];
+              }
+              groupedArticles[date].push(article);
+            });
+
+            Object.keys(groupedArticles).forEach(date => {
+              groupedArticles[date].sort((a, b) =>
+                new Date(b.firstFetched) - new Date(a.firstFetched)
+              );
+            });
+
+            Object.keys(groupedArticles).sort((a, b) => new Date(b) - new Date(a)).forEach((date, index) => {
+              if (index > 0) {
+                articlesContainer.appendChild(document.createElement('hr'));
+              }
+
+              const dateHeader = document.createElement('h3');
+              dateHeader.textContent = date;
+              articlesContainer.appendChild(dateHeader);
+
+              groupedArticles[date].forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.className = 'article';
+                articleElement.innerHTML = `
+                  <h2><a href="${article.link}" target="_blank">${article.title || '[Untitled]'}</a></h2>
+                  <p>${article.summary}</p>
+                  <small>
+                    <b><a href="${article.homepage}" target="_blank">${article.feedTitle}</a></b>
+                    ${article.feedAuthor ? `by <b>${article.feedAuthor}</b>` : ''}
+                  </small>
+                `;
+                articlesContainer.appendChild(articleElement);
+              });
+            });
+
+            updatePageInfo();
+            resolve();
+          })
+          .catch(error => {
+            console.error('Error fetching articles:', error);
+            const articlesContainer = document.getElementById('articles');
+            articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>'
+          });
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    function updatePageInfo() {
+      document.getElementById('pageInfoTop').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('pageInfoBottom').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('prevPageTop').disabled = currentPage === 1;
+      document.getElementById('prevPageBottom').disabled = currentPage === 1;
+      document.getElementById('nextPageTop').disabled = currentPage === totalPages;
+      document.getElementById('nextPageBottom').disabled = currentPage === totalPages;
+    }
+
+    document.getElementById('prevPageTop').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    document.getElementById('prevPageBottom').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    document.getElementById('nextPageTop').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    document.getElementById('nextPageBottom').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        fetchArticles(currentPage).then(() => {
+          scrollToTop();
+        });
+      }
+    });
+
+    fetchPageMetadata();
+  </script>
+</body>
+</html>
