@@ -4,6 +4,6 @@ tagline: |                                    # custom header text (supports HTM
   ☕ A relaxed feed aggregator powered by GitHub Actions.
 feeds:
   - url: https://runtimeterror.dev/feed.xml
-  - url: http://blog.jbowdre.lol/feed/
-    title: jbowdre's Cool Weblog              # override this title
+  - url: http://srsbsns.lol/feed/
+    title: Serious Business (lol)              # override this title
   - url: https://jbowdre.status.lol/feed
