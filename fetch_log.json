@@ -1,30 +1,10 @@
 {
   "articles": {
     "https://blog.jbowdre.lol/a-concert-to-remember/": "2024-07-30T12:31:10.164767973Z",
-    "https://blog.jbowdre.lol/adding-external-link-markers-in-hugo-and-bear/": "2024-07-11T21:40:53.868446146Z",
-    "https://blog.jbowdre.lol/check-urls-on-android-with-urlcheck/": "2024-07-11T21:40:53.868446146Z",
-    "https://blog.jbowdre.lol/hindsight-riding-with-bryton-gardia-radar-taillight/": "2024-07-11T21:40:53.868446146Z",
     "https://blog.jbowdre.lol/mental-health-gravel-ride-day/": "2024-07-13T01:11:42.399139087Z",
-    "https://blog.jbowdre.lol/new-ride/": "2024-07-11T21:40:53.868446146Z",
-    "https://blog.jbowdre.lol/this-week-2024-06-29/": "2024-07-11T21:40:53.868446146Z",
-    "https://blog.jbowdre.lol/this-week-2024-07-06/": "2024-07-11T21:40:53.868446146Z",
     "https://blog.jbowdre.lol/this-week-2024-07-13/": "2024-07-14T01:17:10.336154969Z",
     "https://blog.jbowdre.lol/this-week-2024-07-20/": "2024-07-21T12:29:28.076694147Z",
     "https://blog.jbowdre.lol/this-week-2024-07-27/": "2024-07-28T01:17:26.015629101Z",
-    "https://blog.jbowdre.lol/tracking-bear-upvotes-from-my-cabin/": "2024-07-11T21:40:53.868446146Z",
-    "https://blog.jbowdre.lol/where-to-beargin/": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/666f5aadaaca2": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/6670afe4b3b6b": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/6671e2fd671aa": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/6675bb42c469e": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/667b137533f8b": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/667c6cafa4b87": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/6681bc2051641": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/6685911cd1134": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/66897eb989309": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/668b42e24ce02": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/668e8a723b87e": "2024-07-11T21:40:53.868446146Z",
-    "https://jbowdre.status.lol/668f1cf6a78a8": "2024-07-11T21:40:53.868446146Z",
     "https://jbowdre.status.lol/6697f9e4d5919": "2024-07-18T01:10:47.01678568Z",
     "https://jbowdre.status.lol/66995489bac73": "2024-07-19T03:54:27.421201572Z",
     "https://jbowdre.status.lol/669d4ece275a5": "2024-07-22T01:14:13.063777312Z",
@@ -51,7 +31,6 @@
     "https://runtimeterror.dev/automate-packer-builds-github-actions/": "2024-07-25T12:30:56.736177669Z",
     "https://runtimeterror.dev/building-proxmox-templates-packer/": "2024-07-21T01:17:02.216632335Z",
     "https://runtimeterror.dev/dynamic-robots-txt-hugo-external-data-sources/": "2024-08-07T01:13:24.999200775Z",
-    "https://runtimeterror.dev/kudos-with-cabin/": "2024-07-11T21:40:53.868446146Z",
     "https://runtimeterror.dev/silverbullet-self-hosted-knowledge-management/": "2024-08-22T12:32:01.924747319Z",
     "https://runtimeterror.dev/taking-taildrive-testdrive/": "2024-07-30T01:12:11.181429693Z",
     "https://srsbsns.lol/a-concert-to-remember/": "2024-08-04T01:17:52.396386902Z",
@@ -68,5 +47,5 @@
     "https://srsbsns.lol/this-week-2024-08-25/": "2024-08-26T12:32:14.274065435Z",
     "https://srsbsns.lol/this-week-2024-09-01/": "2024-09-02T12:34:23.176239436Z"
   },
-  "lastCleanup": "2024-09-05T01:17:09.465479687Z"
+  "lastCleanup": "2024-09-06T01:17:10.46424628Z"
 }
