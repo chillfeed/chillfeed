@@ -1,7 +1,6 @@
 {
   "articles": {
     "https://blog.jbowdre.lol/a-concert-to-remember/": "2024-07-30T12:31:10.164767973Z",
-    "https://blog.jbowdre.lol/this-week-2024-07-20/": "2024-07-21T12:29:28.076694147Z",
     "https://blog.jbowdre.lol/this-week-2024-07-27/": "2024-07-28T01:17:26.015629101Z",
     "https://jbowdre.status.lol/669d4ece275a5": "2024-07-22T01:14:13.063777312Z",
     "https://jbowdre.status.lol/66a287188d8ee": "2024-07-26T01:11:25.681232395Z",
@@ -27,7 +26,6 @@
     "https://jbowdre.status.lol/66dc8030227d2": "2024-09-08T01:23:10.670683818Z",
     "https://jbowdre.status.lol/66e498f45a08b": "2024-09-14T01:16:39.495421739Z",
     "https://runtimeterror.dev/automate-packer-builds-github-actions/": "2024-07-25T12:30:56.736177669Z",
-    "https://runtimeterror.dev/building-proxmox-templates-packer/": "2024-07-21T01:17:02.216632335Z",
     "https://runtimeterror.dev/dynamic-robots-txt-hugo-external-data-sources/": "2024-08-07T01:13:24.999200775Z",
     "https://runtimeterror.dev/silverbullet-self-hosted-knowledge-management/": "2024-08-22T12:32:01.924747319Z",
     "https://runtimeterror.dev/taking-taildrive-testdrive/": "2024-07-30T01:12:11.181429693Z",
@@ -47,5 +45,5 @@
     "https://srsbsns.lol/this-week-2024-09-01/": "2024-09-02T12:34:23.176239436Z",
     "https://srsbsns.lol/this-week-2024-09-08/": "2024-09-09T12:34:22.689671277Z"
   },
-  "lastCleanup": "2024-09-14T12:31:15.704976308Z"
+  "lastCleanup": "2024-09-15T12:31:46.721473114Z"
 }
