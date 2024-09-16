@@ -2,7 +2,6 @@
   "articles": {
     "https://blog.jbowdre.lol/a-concert-to-remember/": "2024-07-30T12:31:10.164767973Z",
     "https://blog.jbowdre.lol/this-week-2024-07-27/": "2024-07-28T01:17:26.015629101Z",
-    "https://jbowdre.status.lol/669d4ece275a5": "2024-07-22T01:14:13.063777312Z",
     "https://jbowdre.status.lol/66a287188d8ee": "2024-07-26T01:11:25.681232395Z",
     "https://jbowdre.status.lol/66a3f22ac6be4": "2024-07-27T01:11:02.347787881Z",
     "https://jbowdre.status.lol/66a567b7175c6": "2024-07-28T01:17:26.015629101Z",
@@ -30,6 +29,7 @@
     "https://runtimeterror.dev/silverbullet-self-hosted-knowledge-management/": "2024-08-22T12:32:01.924747319Z",
     "https://runtimeterror.dev/taking-taildrive-testdrive/": "2024-07-30T01:12:11.181429693Z",
     "https://srsbsns.lol/a-concert-to-remember/": "2024-08-04T01:17:52.396386902Z",
+    "https://srsbsns.lol/autocross-2024-09-15/": "2024-09-16T12:35:35.45507228Z",
     "https://srsbsns.lol/i-got-a-new-job/": "2024-08-22T12:32:01.924747319Z",
     "https://srsbsns.lol/is-silverbullet-the-note-keeping-silver-bullet/": "2024-08-10T01:13:42.679658456Z",
     "https://srsbsns.lol/mental-health-gravel-ride-day/": "2024-08-04T01:17:52.396386902Z",
@@ -43,7 +43,8 @@
     "https://srsbsns.lol/this-week-2024-08-18/": "2024-08-19T01:14:32.855434911Z",
     "https://srsbsns.lol/this-week-2024-08-25/": "2024-08-26T12:32:14.274065435Z",
     "https://srsbsns.lol/this-week-2024-09-01/": "2024-09-02T12:34:23.176239436Z",
-    "https://srsbsns.lol/this-week-2024-09-08/": "2024-09-09T12:34:22.689671277Z"
+    "https://srsbsns.lol/this-week-2024-09-08/": "2024-09-09T12:34:22.689671277Z",
+    "https://srsbsns.lol/this-week-2024-09-15/": "2024-09-16T12:35:35.45507228Z"
   },
-  "lastCleanup": "2024-09-15T12:31:46.721473114Z"
+  "lastCleanup": "2024-09-16T12:35:35.455052362Z"
 }
