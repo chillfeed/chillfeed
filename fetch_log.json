@@ -1,6 +1,5 @@
 {
   "articles": {
-    "https://blog.jbowdre.lol/a-concert-to-remember/": "2024-07-30T12:31:10.164767973Z",
     "https://jbowdre.status.lol/66aa9c012ab16": "2024-08-01T01:18:24.017152948Z",
     "https://jbowdre.status.lol/66ae96f3bbf96": "2024-08-04T01:17:52.396386902Z",
     "https://jbowdre.status.lol/66b00773c35dd": "2024-08-05T01:14:35.388347306Z",
@@ -26,7 +25,6 @@
     "https://runtimeterror.dev/caddy-tailscale-alternative-cloudflare-tunnel/": "2024-09-23T01:21:01.528784073Z",
     "https://runtimeterror.dev/dynamic-robots-txt-hugo-external-data-sources/": "2024-08-07T01:13:24.999200775Z",
     "https://runtimeterror.dev/silverbullet-self-hosted-knowledge-management/": "2024-08-22T12:32:01.924747319Z",
-    "https://runtimeterror.dev/taking-taildrive-testdrive/": "2024-07-30T01:12:11.181429693Z",
     "https://srsbsns.lol/a-concert-to-remember/": "2024-08-04T01:17:52.396386902Z",
     "https://srsbsns.lol/autocross-2024-09-15/": "2024-09-16T12:35:35.45507228Z",
     "https://srsbsns.lol/i-got-a-new-job/": "2024-08-22T12:32:01.924747319Z",
@@ -46,5 +44,5 @@
     "https://srsbsns.lol/this-week-2024-09-15/": "2024-09-16T12:35:35.45507228Z",
     "https://srsbsns.lol/this-week-2024-09-22/": "2024-09-23T01:21:01.528784073Z"
   },
-  "lastCleanup": "2024-09-23T12:35:17.195988958Z"
+  "lastCleanup": "2024-09-24T12:35:54.024413641Z"
 }
