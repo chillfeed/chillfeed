@@ -1,6 +1,5 @@
 {
   "articles": {
-    "https://jbowdre.status.lol/66c7be3862792": "2024-08-23T01:13:37.424779704Z",
     "https://jbowdre.status.lol/66cddf8abaa16": "2024-08-28T01:15:39.216568326Z",
     "https://jbowdre.status.lol/66cf4630ac4ee": "2024-08-29T01:16:24.053522673Z",
     "https://jbowdre.status.lol/66d1c2967d49b": "2024-08-31T01:16:13.213507946Z",
@@ -17,9 +16,7 @@
     "https://jbowdre.status.lol/6706a25c286fc": "2024-10-10T01:20:53.087288379Z",
     "https://runtimeterror.dev/caddy-tailscale-alternative-cloudflare-tunnel/": "2024-09-23T01:21:01.528784073Z",
     "https://runtimeterror.dev/publish-silverbullet-notes-quartz/": "2024-09-30T01:23:31.533112245Z",
-    "https://runtimeterror.dev/silverbullet-self-hosted-knowledge-management/": "2024-08-22T12:32:01.924747319Z",
     "https://srsbsns.lol/autocross-2024-09-15/": "2024-09-16T12:35:35.45507228Z",
-    "https://srsbsns.lol/i-got-a-new-job/": "2024-08-22T12:32:01.924747319Z",
     "https://srsbsns.lol/the-end-of-an-era-furnace-fest-2024/": "2024-10-14T01:23:15.300556119Z",
     "https://srsbsns.lol/the-end-of-something-and-the-start-of-something-else/": "2024-09-15T01:25:55.512463886Z",
     "https://srsbsns.lol/this-week-2024-08-25/": "2024-08-26T12:32:14.274065435Z",
@@ -31,5 +28,5 @@
     "https://srsbsns.lol/this-week-2024-10-06/": "2024-10-08T12:33:38.498472901Z",
     "https://srsbsns.lol/this-week-2024-10-13/": "2024-10-14T12:36:26.638405282Z"
   },
-  "lastCleanup": "2024-10-17T01:21:50.184791807Z"
+  "lastCleanup": "2024-10-18T12:34:59.432670724Z"
 }
