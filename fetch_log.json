@@ -1,6 +1,5 @@
 {
   "articles": {
-    "https://jbowdre.status.lol/67261d4386403": "2024-11-03T01:27:09.388186044Z",
     "https://jbowdre.status.lol/6728f7571c4e1": "2024-11-05T01:20:08.226706672Z",
     "https://jbowdre.status.lol/672a2d8f12000": "2024-11-06T01:19:59.430896328Z",
     "https://jbowdre.status.lol/672b56d64e8a3": "2024-11-06T12:35:32.142434552Z",
@@ -23,6 +22,7 @@
     "https://jbowdre.status.lol/6766d722b1083": "2024-12-22T01:34:44.687217635Z",
     "https://jbowdre.status.lol/676b31b008e20": "2024-12-25T01:20:47.632320683Z",
     "https://jbowdre.status.lol/676d938b6cd23": "2024-12-27T01:21:34.989098516Z",
+    "https://jbowdre.status.lol/6771e97c10c65": "2024-12-30T01:23:55.089422595Z",
     "https://runtimeterror.dev/read-content-into-file-vim/": "2024-12-11T12:38:53.658149835Z",
     "https://srsbsns.lol/a-ghostty-in-my-machine/": "2024-12-27T12:34:20.891297782Z",
     "https://srsbsns.lol/a-software-stack-shakeup/": "2024-12-23T01:23:19.930860964Z",
@@ -38,5 +38,5 @@
     "https://srsbsns.lol/this-week-2024-11-10/": "2024-11-12T01:19:32.685441038Z",
     "https://srsbsns.lol/this-week-2024-11-17/": "2024-11-18T01:27:17.882476884Z"
   },
-  "lastCleanup": "2024-12-28T12:32:42.645750256Z"
+  "lastCleanup": "2024-12-30T01:23:55.089401526Z"
 }
