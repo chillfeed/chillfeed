@@ -1,6 +1,5 @@
 {
   "articles": {
-    "https://jbowdre.status.lol/672a2d8f12000": "2024-11-06T01:19:59.430896328Z",
     "https://jbowdre.status.lol/672b56d64e8a3": "2024-11-06T12:35:32.142434552Z",
     "https://jbowdre.status.lol/672b6cbc4c0f4": "2024-11-07T01:20:23.488731436Z",
     "https://jbowdre.status.lol/673382b76fe72": "2024-11-13T01:20:54.551666833Z",
@@ -26,7 +25,6 @@
     "https://runtimeterror.dev/read-content-into-file-vim/": "2024-12-11T12:38:53.658149835Z",
     "https://srsbsns.lol/a-ghostty-in-my-machine/": "2024-12-27T12:34:20.891297782Z",
     "https://srsbsns.lol/a-software-stack-shakeup/": "2024-12-23T01:23:19.930860964Z",
-    "https://srsbsns.lol/autocross-2024-11-03/": "2024-11-06T01:19:59.430896328Z",
     "https://srsbsns.lol/autocross-report-2024-11-23/": "2024-11-25T12:38:06.253035038Z",
     "https://srsbsns.lol/autocross-report-2024-12-08/": "2024-12-09T12:40:10.311892821Z",
     "https://srsbsns.lol/headlights-on-my-head/": "2024-12-31T01:21:19.540009028Z",
@@ -38,5 +36,5 @@
     "https://srsbsns.lol/this-week-2024-11-10/": "2024-11-12T01:19:32.685441038Z",
     "https://srsbsns.lol/this-week-2024-11-17/": "2024-11-18T01:27:17.882476884Z"
   },
-  "lastCleanup": "2024-12-31T12:34:26.325228243Z"
+  "lastCleanup": "2025-01-01T12:34:32.498416019Z"
 }
