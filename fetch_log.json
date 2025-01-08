@@ -1,6 +1,5 @@
 {
   "articles": {
-    "https://jbowdre.status.lol/673382b76fe72": "2024-11-13T01:20:54.551666833Z",
     "https://jbowdre.status.lol/6734b83dafc4c": "2024-11-14T01:21:01.133065194Z",
     "https://jbowdre.status.lol/6737425e416ff": "2024-11-16T01:24:11.892951249Z",
     "https://jbowdre.status.lol/6739683992642": "2024-11-17T12:33:47.672434723Z",
@@ -21,6 +20,7 @@
     "https://jbowdre.status.lol/6771e97c10c65": "2024-12-30T01:23:55.089422595Z",
     "https://jbowdre.status.lol/6774131566ea6": "2025-01-01T01:35:29.288009645Z",
     "https://jbowdre.status.lol/6775e3c56ef5b": "2025-01-02T01:21:04.458390511Z",
+    "https://jbowdre.status.lol/677db4511060c": "2025-01-08T01:22:12.597833525Z",
     "https://runtimeterror.dev/manage-dns-records-github-actions-dnscontrol/": "2025-01-02T01:21:04.458390511Z",
     "https://runtimeterror.dev/read-content-into-file-vim/": "2024-12-11T12:38:53.658149835Z",
     "https://srsbsns.lol/a-ghostty-in-my-machine/": "2024-12-27T12:34:20.891297782Z",
@@ -34,8 +34,7 @@
     "https://srsbsns.lol/opening-up-opengist/": "2024-11-28T12:38:28.368051695Z",
     "https://srsbsns.lol/post-mortem-on-the-srsbsns-runtimeterror-data-center-outage/": "2024-12-04T12:38:53.245629915Z",
     "https://srsbsns.lol/this-is-a-postmodern-jukebox-post/": "2024-12-22T01:34:44.687217635Z",
-    "https://srsbsns.lol/this-week-2024-11-10/": "2024-11-12T01:19:32.685441038Z",
     "https://srsbsns.lol/this-week-2024-11-17/": "2024-11-18T01:27:17.882476884Z"
   },
-  "lastCleanup": "2025-01-06T12:36:41.243974267Z"
+  "lastCleanup": "2025-01-08T01:22:12.597810973Z"
 }
