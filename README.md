@@ -1,11 +1,12 @@
 # ChillFeed
 
-[![Fetch Feeds](https://github.com/chillfeed/chillfeed/actions/workflows/fetch_feeds.yml/badge.svg)](https://github.com/chillfeed/chillfeed/actions/workflows/fetch_feeds.yml)
-
 ChillFeed is a relaxed feed aggregator that brings your feeds together in one place, with no pressure to keep up. It's designed for those who want a list of cool stuff so they can read what grabs their interest rather than a checklist of items that must be acknowledged.
 
 **Demo:** https://chillfeed.github.io/chillfeed
 
+> [!NOTE]
+> This project is no longer maintained.
+> You might check out [tinyfeed](https://github.com/TheBigRoomXXL/tinyfeed) instead.
 
 ## Features
 
